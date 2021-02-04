@@ -1,0 +1,41 @@
+name: locator_app
+description: Find what Google could not
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  rxdart: ^0.23.1
+  provider: ^4.0.4
+  bloc: ^3.0.0
+  flutter_bloc: ^3.2.0
+  equatable: ^1.1.1
+#  connectivity: ^0.3.1
+  google_maps_flutter: ^0.5.24+1
+  font_awesome_flutter: ^8.7.0
+  location: ^2.5.4
+  google_sign_in: 4.0.0
+  cloud_firestore: ^0.13.4+2
+  percent_indicator: ^2.1.1+1
+  get_it: ^4.0.1
+  sprung: ^1.1.0+11
+  google_fonts: ^0.3.10
+  conditional_wrapper: ^1.0.1
+  mockito: ^4.1.1
+
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  intl_translation: ^0.17.9
+  effective_dart: ^1.2.1
+  bloc_test: ^4.0.0
+
+flutter:
+  uses-material-design: true

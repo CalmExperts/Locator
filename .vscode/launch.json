@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Galaxy Note 10",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "SM N975U",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "iPhone",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "iPhone",
+            "program": "lib/main.dart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/functions/src/index.ts",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": [
+                "Galaxy Note 10",
+                "iPhone"
+            ],
+        }
+    ]
+}

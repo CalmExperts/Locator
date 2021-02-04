@@ -1,0 +1,21 @@
+{
+  "@@last_modified": "2019-01-29T17:44:07.401602",
+  "appName": "Locator",
+  "@appName": {
+    "description": "name of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "editButton": "Edit",
+  "@editButton": {
+    "description": "Edit backdrop, the Edit button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "directionsButton": "directions",
+  "@directionsButton": {
+    "description": "Edit backdrop, the directions button",
+    "type": "text",
+    "placeholders": {}
+  }
+}
