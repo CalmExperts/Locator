@@ -21,10 +21,7 @@ import 'map/route/map.dart';
 
 import 'package:flutter/services.dart';
 
-
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -37,7 +34,6 @@ class Locator extends StatefulWidget {
 }
 
 class _LocatorState extends State<Locator> {
-  
   @override
   void initState() {
     GetIt.I
@@ -48,10 +44,10 @@ class _LocatorState extends State<Locator> {
 
   @override
   Widget build(BuildContext context) {
-  SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Provider<Auth>(
-      create: (context) => Auth()..silently(),
+      create: (context) => Auth()..getCurrentUser(),
       child: MaterialApp(
         localizationsDelegates: [
           LocsDelegate(),

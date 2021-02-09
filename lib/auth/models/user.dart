@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:locator/db/db.dart';
 import 'package:locator/map/models/model.dart';
 
-class User extends Model {
+class UserModel extends Model {
   final String email;
   final String name;
   final String picUrl;
   final String id;
 
-  User({
+  UserModel({
     this.email,
     this.name,
     this.picUrl,
@@ -29,8 +30,8 @@ class User extends Model {
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> data) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> data) {
+    return UserModel(
       email: data['email'],
       name: data['name'],
       picUrl: data['picUrl'],
@@ -38,12 +39,22 @@ class User extends Model {
     );
   }
 
-  factory User.google(GoogleSignInAccount googleUser) {
-    return User(
+  factory UserModel.google(GoogleSignInAccount googleUser) {
+    return UserModel(
       email: googleUser.email,
       name: googleUser.displayName,
       picUrl: googleUser.photoUrl,
       id: googleUser.id,
+    );
+  }
+
+  factory UserModel.currentUser(User signedUser) {
+    // User signedUser = userCredential.user;
+    return UserModel(
+      email: signedUser.email,
+      name: signedUser.displayName,
+      picUrl: signedUser.photoURL,
+      id: signedUser.uid,
     );
   }
 }
