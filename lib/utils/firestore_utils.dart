@@ -4,13 +4,13 @@ import 'package:locator_app/db/db.dart';
 import 'package:locator_app/resources/constants.dart';
 
 changeLocationToSingleMapField() {
-  firestore.collection('drop').getDocuments().then((snapshot) {
-    for (final DocumentSnapshot document in snapshot.documents) {
+  firestore.collection('drop').get().then((snapshot) {
+    for (final DocumentSnapshot document in snapshot.docs) {
       var data = document.data;
-      document.reference.updateData({
+      document.reference.update({
         'coordinates': {
-          'latitude': data['latitude'],
-          'longitude': data['longitude']
+          'latitude': data()['latitude'],
+          'longitude': data()['longitude']
         },
         'latitude': FieldValue.delete(),
         'longitude': FieldValue.delete()
@@ -21,11 +21,10 @@ changeLocationToSingleMapField() {
 
 moveTypesToCategories() => firestore
     .collection('type')
-    .getDocuments()
-    .then((value) => value.documents.forEach((element) async {
-          var newDocument =
-              firestore.collection('categories').document(element.documentID);
-          newDocument.setData(element.data);
+    .get()
+    .then((value) => value.docs.forEach((element) async {
+          var newDocument = firestore.collection('categories').doc(element.id);
+          newDocument.set(element.data());
           var documentSnapshot = await newDocument.get();
           if (documentSnapshot.exists) {
             await element.reference.delete();
@@ -35,27 +34,26 @@ moveTypesToCategories() => firestore
 changeAddedByToDocumentReference() {
   firestore
       .collection('drop')
-      .getDocuments()
-      .then((snapshot) => snapshot.documents.forEach((element) {
-            var data = element.data;
-            data['addedBy'] = firestore.document('users/${data['addedBy']}');
-            firestore.document('drops/${element.documentID}').setData(data);
+      .get()
+      .then((snapshot) => snapshot.docs.forEach((element) {
+            var data = element.data();
+            data['addedBy'] = firestore.doc('users/${data['addedBy']}');
+            firestore.doc('drops/${element.id}').set(data);
           }));
 }
 
 moveTypeNamesToCategory() {
-  firestore.collection('categories').getDocuments().then((snapshot) {
+  firestore.collection('categories').get().then((snapshot) {
     firestore
         .collection(dropKey)
-        .getDocuments()
-        .then((snapshot) => snapshot.documents.forEach((drop) {
-              if (drop.data['category'] == null) {
-                var categoryId = drop.data['type'];
-                drop.reference.updateData({
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((drop) {
+              if (drop.data()['category'] == null) {
+                var categoryId = drop.data()['type'];
+                drop.reference.update({
                   'category': {
-                    'name': drop.data['type_name'],
-                    'documentReference':
-                        firestore.document('categories/$categoryId')
+                    'name': drop.data()['type_name'],
+                    'documentReference': firestore.doc('categories/$categoryId')
                   },
                   'type': FieldValue.delete(),
                   'type_name': FieldValue.delete()
@@ -67,28 +65,28 @@ moveTypeNamesToCategory() {
 
 addCategoriesToTopCategory() async {
   final streetDoc =
-      await firestore.document('/categories/MCS8kNHQiuGgUxoZwntF').get();
-  var streetDocData = streetDoc.data;
+      await firestore.doc('/categories/MCS8kNHQiuGgUxoZwntF').get();
+  var streetDocData = streetDoc.data();
   var newList = [];
   await firestore
       .collection('categories')
-      .getDocuments()
-      .then((query) => query.documents.forEach((element) {
-            if (element.data['name'] != 'Street' &&
-                element.data['level'] != 'sub') {
+      .get()
+      .then((query) => query.docs.forEach((element) {
+            if (element.data()['name'] != 'Street' &&
+                element.data()['level'] != 'sub') {
               newList.add(element.reference);
             }
           }));
   streetDocData['categories'] = newList;
-  streetDoc.reference.updateData(streetDocData);
+  streetDoc.reference.update(streetDocData);
 }
 
 clearDropsWithNullCoordinates() {
   firestore
       .collection('drops')
-      .getDocuments()
-      .then((snapshot) => snapshot.documents.forEach((element) {
-            if (element.data['coordinates'] == null) {
+      .get()
+      .then((snapshot) => snapshot.docs.forEach((element) {
+            if (element.data()['coordinates'] == null) {
               element.reference.delete();
               debugPrint('Deleted ${element.reference.path}');
             }
@@ -96,9 +94,8 @@ clearDropsWithNullCoordinates() {
 }
 
 convertDropTagsToMaps() {
-  firestore.collection('drops').getDocuments().then((snapshot) => snapshot
-      .documents
-      .forEach((element) => element.reference.updateData({'tags': {}})));
+  firestore.collection('drops').get().then((snapshot) => snapshot.docs
+      .forEach((element) => element.reference.update({'tags': {}})));
 }
 
 addFieldToDocument(
@@ -106,15 +103,15 @@ addFieldToDocument(
   @required String field,
   @required dynamic fieldData,
 }) =>
-    firestore.document(path).updateData({field: fieldData});
+    firestore.doc(path).update({field: fieldData});
 
 convertDropCategoriesTagsToMaps() {
   firestore
       .collection('drops')
-      .getDocuments()
-      .then((snapshot) => snapshot.documents.forEach((document) {
+      .get()
+      .then((snapshot) => snapshot.docs.forEach((document) {
             Map<String, dynamic> newMap = {};
-            var data = document.data;
+            var data = document.data();
             if (data['category'] != null && data['category']['tags'] is List) {
               Map oldCategory = data['category'];
               oldCategory['tags'] = {};
@@ -132,6 +129,6 @@ convertDropCategoriesTagsToMaps() {
               oldCategory['tags'] = {};
               newMap['subcategory'] = oldCategory;
             }
-            document.reference.updateData(newMap);
+            document.reference.update(newMap);
           }));
 }

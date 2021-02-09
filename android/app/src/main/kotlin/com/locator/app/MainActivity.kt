@@ -1,4 +1,4 @@
-package com.locator.app
+package com.calmexperts.locator
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

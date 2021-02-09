@@ -25,7 +25,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   static MapBloc of(BuildContext context) => BlocProvider.of<MapBloc>(context);
 
-  MapBloc({@required this.categoryService}) {
+  MapBloc({@required this.categoryService}) : super(MapInitial()) {
     _mapStreamSubscription = CombineLatestStream.combine5<List<Category>,
         List<Category>, Category, Category, Subcategory, MapState>(
       categoryService.topCategoryStream,

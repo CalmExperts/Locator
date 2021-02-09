@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,8 +19,10 @@ import 'package:mockito/mockito.dart';
 import 'locale/locales.dart';
 import 'map/route/map.dart';
 
-void main() {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(Locator());
 }
 
@@ -34,7 +37,6 @@ class _LocatorState extends State<Locator> {
     GetIt.I
       ..registerLazySingleton<CategoryService>(() => CategoryService())
       ..registerLazySingleton<MarkService>(() => MarkService());
-
     super.initState();
   }
 

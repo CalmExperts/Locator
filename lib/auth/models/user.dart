@@ -17,7 +17,7 @@ class User extends Model {
   });
 
   DocumentReference get documentReference =>
-      firestore.collection('users').document(id);
+      firestore.collection('users').doc(id);
 
   @override
   Map<String, dynamic> toMap() {

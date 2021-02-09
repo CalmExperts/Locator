@@ -42,7 +42,7 @@ class Drop extends Model {
   final DocumentReference documentReference;
 
   // id of Google Maps drop marker this drop is depicted with
-  String get id => documentReference.documentID;
+  String get id => documentReference.id;
 
   Drop({
     this.topCategory,
@@ -62,7 +62,7 @@ class Drop extends Model {
   });
 
   factory Drop.fromDocument(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data;
+    Map<String, dynamic> data = document.data();
     // Use this if we start getting null data showing up in the db.
 //    if (data.entries.where((element) => element.value == null).length > 4) {
 //      document.reference.delete();

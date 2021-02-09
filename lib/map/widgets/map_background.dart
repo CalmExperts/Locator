@@ -63,7 +63,7 @@ class MapBackgroundState extends State<MapBackground> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(
-      condition: (oldState, newState) {
+      buildWhen: (oldState, newState) {
         return (oldState.activeTopCategory != newState.activeTopCategory ||
                 oldState.activeCategory != newState.activeCategory ||
                 oldState.activeSubcategory != newState.activeSubcategory) &&

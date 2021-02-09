@@ -19,16 +19,16 @@ class DropService {
             isEqualTo: category?.documentReference, condition: category != null)
         .snapshots()
         .map((querySnapshot) {
-      return querySnapshot.documents
+      return querySnapshot.docs
           .where((document) {
-            final data = document.data;
+            final data = document.data();
             if (data['isDraft'] != true) {
               return true;
             }
             if (user == null) {
               return false; // don't return drafts unless the draft belongs to the logged in user.
             } else {
-              return document.data['addedBy'] == user.documentReference;
+              return document.data()['addedBy'] == user.documentReference;
             }
           })
           .map((documentSnapshot) => Drop.fromDocument(documentSnapshot))
@@ -39,5 +39,5 @@ class DropService {
   Future<DocumentReference> create(Drop drop) =>
       firestore.collection(dropKey).add(drop.toMap());
 
-  void update(Drop drop) => drop.documentReference.setData(drop.toMap());
+  void update(Drop drop) => drop.documentReference.set(drop.toMap());
 }

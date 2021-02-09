@@ -101,15 +101,14 @@ class CategoryService {
         .where('level', isEqualTo: 'top')
         .snapshots()
         .map((qs) =>
-            qs.documents.map((ds) => Category.fromDocument(ds)).toList()
-              ..sort());
+            qs.docs.map((ds) => Category.fromDocument(ds)).toList()..sort());
   }
 
   void uid() {
-    firestore.collection('type').getDocuments().then((qs) {
-      qs.documents.forEach((ds) {
-        var id = ds.documentID;
-        firestore.collection('type').document(id).updateData({
+    firestore.collection('type').get().then((qs) {
+      qs.docs.forEach((ds) {
+        var id = ds.id;
+        firestore.collection('type').doc(id).update({
           'uid': id,
         });
       });

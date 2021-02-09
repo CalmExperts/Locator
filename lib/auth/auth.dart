@@ -55,5 +55,5 @@ class Auth {
   void close() => _userStream.close();
 
   void register(User user) =>
-      firestore.collection('users').document(user.id).setData(user.toMap());
+      firestore.collection('users').doc(user.id).set(user.toMap());
 }

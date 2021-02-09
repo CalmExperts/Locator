@@ -33,7 +33,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     @required this.dropService,
     CardState initialState,
     @required CategoryService categoryService,
-  }) : _initialState = initialState {
+  })  : _initialState = initialState,
+        super(null) {
     _categoryStreamSubscription =
         CombineLatestStream.combine3<Category, Category, Subcategory, List>(
                 categoryService.activeTopCategoryStream,
@@ -77,7 +78,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         debugPrint('Creating drop.');
 
         final dropReference = await dropService.create(state.drop);
-        debugPrint('Created drop. ID: ${dropReference.documentID}');
+        debugPrint('Created drop. ID: ${dropReference.id}');
       } else {
         dropService.update(state.drop);
         debugPrint('Updated drop. ID: ${state.drop.id}');

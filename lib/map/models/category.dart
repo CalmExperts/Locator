@@ -42,12 +42,12 @@ class Category extends Model implements Comparable {
     @required this.tags,
   }) : assert(name != null);
 
-  String get id => documentReference.documentID;
+  String get id => documentReference.id;
 
   bool get hasChildren => childrenCategories?.isNotEmpty == true;
 
   factory Category.fromDocument(DocumentSnapshot documentSnapshot) {
-    final Map data = documentSnapshot.data;
+    final Map data = documentSnapshot.data();
     CategoryLevel categoryLevel = stringToCategoryLevelMap[data['level']];
     List<DocumentReference> childrenCategories;
     if (categoryLevel == CategoryLevel.top) {
@@ -78,7 +78,7 @@ class Category extends Model implements Comparable {
     }
     var documentReference = data['documentReference'];
     if (documentReference is MethodChannelDocumentReference) {
-      documentReference = firestore.document(documentReference.path);
+      documentReference = firestore.doc(documentReference.path);
     }
     List<DocumentReference> childrenCategories;
     if (data['categoryLevel'] == CategoryLevel.top) {
@@ -154,9 +154,9 @@ class Subcategory extends Category {
     }
     return Subcategory(
       documentReference: document.reference,
-      name: data['name'] as String,
-      description: data['description'] ?? '',
-      tags: data['tags'],
+      name: data()['name'] as String,
+      description: data()['description'] ?? '',
+      tags: data()['tags'],
     );
   }
 
@@ -166,7 +166,7 @@ class Subcategory extends Category {
     }
     var documentReference = data['documentReference'];
     if (documentReference is MethodChannelDocumentReference) {
-      documentReference = firestore.document(documentReference.path);
+      documentReference = firestore.doc(documentReference.path);
     }
 
     return Subcategory(
