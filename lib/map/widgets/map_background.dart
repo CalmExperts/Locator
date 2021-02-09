@@ -91,6 +91,7 @@ class MapBackgroundState extends State<MapBackground> {
             final data = snapshot.data ?? [];
 
             return GoogleMap(
+              zoomControlsEnabled: false,
               key: mapKey,
               compassEnabled: true,
               initialCameraPosition: CameraPosition(
