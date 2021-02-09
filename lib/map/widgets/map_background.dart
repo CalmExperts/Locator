@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/auth/auth.dart';
@@ -125,6 +126,7 @@ class MapBackgroundState extends State<MapBackground> {
                 setState(() {
                   mapController = controller;
                 });
+                _activateMapDarkMode();
               },
               onLongPress: (LatLng position) async {
                 var currentUser =
@@ -164,6 +166,18 @@ class MapBackgroundState extends State<MapBackground> {
         );
       },
     );
+  }
+
+  _activateMapDarkMode() {
+    getJsonForMapMode('assets/map_dark_mode.json').then(setMapStyle);
+  }
+
+  Future<String> getJsonForMapMode(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle) {
+    mapController.setMapStyle(mapStyle);
   }
 
   void _showViewDropCard() {

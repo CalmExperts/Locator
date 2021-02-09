@@ -56,7 +56,7 @@ class _LocatorState extends State<Locator> {
         ],
         onGenerateTitle: (BuildContext context) => Locs.of(context).appName,
         debugShowCheckedModeBanner: false,
-        theme: locatorTheme,
+        //theme: locatorDarkTheme,
         home: MultiProvider(
           providers: [
             ProxyProvider<Auth, DropService>(
