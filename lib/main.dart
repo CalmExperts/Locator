@@ -11,6 +11,7 @@ import 'package:locator_app/map/widgets/edit_card/animated_list_info.dart';
 import 'package:locator_app/map/widgets/edit_card/bloc/card_bloc.dart';
 import 'package:locator_app/marks/services/like_service.dart';
 import 'package:locator_app/resources/colors.dart' show locatorTheme;
+import 'package:locator_app/resources/themes.dart';
 import 'package:locator_app/utils/firestore_utils.dart';
 import 'package:locator_app/visual_widget_tests/create_card_tests.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,7 @@ class _LocatorState extends State<Locator> {
         ],
         onGenerateTitle: (BuildContext context) => Locs.of(context).appName,
         debugShowCheckedModeBanner: false,
-        theme: locatorTheme,
+        //theme: locatorDarkTheme,
         home: MultiProvider(
           providers: [
             ProxyProvider<Auth, DropService>(
