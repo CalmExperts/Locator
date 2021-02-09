@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:locator_app/db/db.dart';
-import 'package:locator_app/map/models/model.dart';
+import 'package:locator/db/db.dart';
+import 'package:locator/map/models/model.dart';
 
 class User extends Model {
   final String email;

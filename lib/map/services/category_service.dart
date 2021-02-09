@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locator_app/db/db.dart' show firestore;
-import 'package:locator_app/map/models/category.dart';
+import 'package:locator/db/db.dart' show firestore;
+import 'package:locator/map/models/category.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CategoryService {

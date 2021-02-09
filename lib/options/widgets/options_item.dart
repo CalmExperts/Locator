@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/resources/colors.dart';
+import 'package:locator/resources/colors.dart';
 
 class OptionsItem extends StatelessWidget {
   final Function function;

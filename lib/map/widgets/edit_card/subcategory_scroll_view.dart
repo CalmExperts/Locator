@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/services/category_service.dart';
-import 'package:locator_app/map/widgets/edit_card/subcategory_tile.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/services/category_service.dart';
+import 'package:locator/map/widgets/edit_card/subcategory_tile.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
 
 class SubcategoryScrollView extends StatefulWidget {
   final Category category;

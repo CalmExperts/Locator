@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/auth/models/user.dart';
-import 'package:locator_app/general/widgets/primary_button.dart';
-import 'package:locator_app/general/widgets/user_avatar.dart';
-import 'package:locator_app/options/widgets/options_item.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/enums.dart' show SignInMode;
+import 'package:locator/auth/auth.dart';
+import 'package:locator/auth/models/user.dart';
+import 'package:locator/general/widgets/primary_button.dart';
+import 'package:locator/general/widgets/user_avatar.dart';
+import 'package:locator/options/widgets/options_item.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/enums.dart' show SignInMode;
 import 'package:provider/provider.dart';
 
 class AccountPage extends StatefulWidget {

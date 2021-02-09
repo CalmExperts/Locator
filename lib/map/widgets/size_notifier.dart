@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/widgets/category_button.dart';
+import 'package:locator/map/widgets/category_button.dart';
 
 class SizeNotifier<T extends Widget> extends StatefulWidget {
   /// The widget that needs to be sized

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/auth/route/account_page.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/models/coordinates.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/services/drop_service.dart';
-import 'package:locator_app/map/widgets/drop_card.dart';
-import 'package:locator_app/map/widgets/edit_card/bloc/card_bloc.dart';
-import 'package:locator_app/map/widgets/edit_card/create_card.dart';
-import 'package:locator_app/map/widgets/loading_failed.dart';
-import 'package:locator_app/resources/dimensions.dart';
-import 'package:locator_app/resources/enums.dart';
-import 'package:locator_app/utils/dialog.dart';
-import 'package:locator_app/utils/exceptions.dart';
-import 'package:locator_app/utils/functions.dart' show navigateTo;
+import 'package:locator/auth/auth.dart';
+import 'package:locator/auth/route/account_page.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/models/coordinates.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/services/drop_service.dart';
+import 'package:locator/map/widgets/drop_card.dart';
+import 'package:locator/map/widgets/edit_card/bloc/card_bloc.dart';
+import 'package:locator/map/widgets/edit_card/create_card.dart';
+import 'package:locator/map/widgets/loading_failed.dart';
+import 'package:locator/resources/dimensions.dart';
+import 'package:locator/resources/enums.dart';
+import 'package:locator/utils/dialog.dart';
+import 'package:locator/utils/exceptions.dart';
+import 'package:locator/utils/functions.dart' show navigateTo;
 import 'package:provider/provider.dart';
 
 typedef ShowBottomSheet = PersistentBottomSheetController Function(

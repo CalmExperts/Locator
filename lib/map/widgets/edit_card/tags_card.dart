@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locator_app/map/models/tag.dart';
-import 'package:locator_app/map/widgets/edit_card/bloc/card_bloc.dart';
-import 'package:locator_app/map/widgets/edit_card/option_selector.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/map/models/tag.dart';
+import 'package:locator/map/widgets/edit_card/bloc/card_bloc.dart';
+import 'package:locator/map/widgets/edit_card/option_selector.dart';
+import 'package:locator/utils/extensions.dart';
 
 class TagsCard extends StatefulWidget {
   final Map<String, Tag> tags;

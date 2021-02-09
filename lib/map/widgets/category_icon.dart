@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/layered_icon.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/layered_icon.dart';
+import 'package:locator/utils/extensions.dart';
 
 class CategoryIcon extends StatelessWidget {
   final Category category;

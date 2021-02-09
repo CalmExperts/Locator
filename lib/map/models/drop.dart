@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/models/coordinates.dart';
-import 'package:locator_app/map/models/model.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/models/coordinates.dart';
+import 'package:locator/map/models/model.dart';
 
 class Drop extends Model {
   final Category topCategory;

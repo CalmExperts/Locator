@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:locator_app/db/db.dart';
-import 'package:locator_app/resources/enums.dart';
+import 'package:locator/db/db.dart';
+import 'package:locator/resources/enums.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'models/user.dart';

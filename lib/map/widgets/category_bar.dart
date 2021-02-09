@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/category_button.dart';
-import 'package:locator_app/map/widgets/edit_card/category_balloon.dart';
-import 'package:locator_app/map/widgets/flexible_container.dart';
-import 'package:locator_app/resources/dimensions.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/category_button.dart';
+import 'package:locator/map/widgets/edit_card/category_balloon.dart';
+import 'package:locator/map/widgets/flexible_container.dart';
+import 'package:locator/resources/dimensions.dart';
+import 'package:locator/utils/extensions.dart';
 
 typedef CategoryBarOnChange = void Function({
   @required CategoryBarStep currentStep,

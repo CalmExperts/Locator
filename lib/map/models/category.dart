@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: implementation_imports
 import 'package:cloud_firestore_platform_interface/src/method_channel/method_channel_document_reference.dart';
 import 'package:flutter/foundation.dart';
-import 'package:locator_app/db/db.dart';
-import 'package:locator_app/map/models/model.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/db/db.dart';
+import 'package:locator/map/models/model.dart';
+import 'package:locator/utils/extensions.dart';
 
 class Category extends Model implements Comparable {
   final String name;

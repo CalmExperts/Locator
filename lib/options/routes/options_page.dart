@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/auth/route/account_page.dart';
-import 'package:locator_app/general/widgets/user_avatar.dart';
-import 'package:locator_app/options/widgets/options_item.dart';
-import 'package:locator_app/utils/functions.dart';
+import 'package:locator/auth/route/account_page.dart';
+import 'package:locator/general/widgets/user_avatar.dart';
+import 'package:locator/options/widgets/options_item.dart';
+import 'package:locator/utils/functions.dart';
 
 class OptionsPage extends StatefulWidget {
   @override

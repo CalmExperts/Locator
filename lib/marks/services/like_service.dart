@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locator_app/db/db.dart' show firestore;
-import 'package:locator_app/marks/models/mark.dart';
-import 'package:locator_app/resources/constants.dart';
+import 'package:locator/db/db.dart' show firestore;
+import 'package:locator/marks/models/mark.dart';
+import 'package:locator/resources/constants.dart';
 
 const String likes = 'likes';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/resources/dimensions.dart';
 
 class FindMe extends StatefulWidget {
   final Function(LatLng coordinates) onFindMe;

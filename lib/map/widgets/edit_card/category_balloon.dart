@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/category_container.dart';
-import 'package:locator_app/map/widgets/category_icon.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/category_container.dart';
+import 'package:locator/map/widgets/category_icon.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
 
 //const double size = 60;
 

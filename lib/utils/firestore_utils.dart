@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:locator_app/db/db.dart';
-import 'package:locator_app/resources/constants.dart';
+import 'package:locator/db/db.dart';
+import 'package:locator/resources/constants.dart';
 
 changeLocationToSingleMapField() {
   firestore.collection('drop').get().then((snapshot) {

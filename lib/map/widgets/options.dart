@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/options/routes/options_page.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/options/routes/options_page.dart';
+import 'package:locator/resources/dimensions.dart';
 
 class Options extends StatefulWidget {
   @override

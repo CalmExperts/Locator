@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/widgets/category_icon.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/widgets/category_icon.dart';
+import 'package:locator/utils/extensions.dart';
 
 class SummaryCardView extends StatelessWidget {
   final Drop drop;

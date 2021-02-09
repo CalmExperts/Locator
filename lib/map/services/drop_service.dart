@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show required;
-import 'package:locator_app/auth/models/user.dart';
-import 'package:locator_app/db/db.dart' show firestore;
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/resources/constants.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/auth/models/user.dart';
+import 'package:locator/db/db.dart' show firestore;
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/resources/constants.dart';
+import 'package:locator/utils/extensions.dart';
 
 class DropService {
   final User user;
