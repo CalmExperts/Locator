@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class Likes extends StatelessWidget {
   final Drop drop;
-  final User user;
+  final UserModel user;
 
   const Likes({Key key, @required this.drop, @required this.user})
       : super(key: key);

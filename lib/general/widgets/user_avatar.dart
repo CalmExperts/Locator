@@ -20,7 +20,8 @@ class UserAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: NetworkImage(
-                      Provider.of<Auth>(context).currentUser.picUrl),
+                    Provider.of<Auth>(context).currentUser.picUrl,
+                  ),
                   fit: BoxFit.fill),
             ),
           );

@@ -43,7 +43,7 @@ class _LocatorState extends State<Locator> {
   @override
   Widget build(BuildContext context) {
     return Provider<Auth>(
-      create: (context) => Auth()..silently(),
+      create: (context) => Auth()..getCurrentUser(),
       child: MaterialApp(
         localizationsDelegates: [
           LocsDelegate(),

@@ -8,7 +8,7 @@ import 'package:locator/resources/constants.dart';
 import 'package:locator/utils/extensions.dart';
 
 class DropService {
-  final User user;
+  final UserModel user;
 
   DropService({@required this.user});
 
