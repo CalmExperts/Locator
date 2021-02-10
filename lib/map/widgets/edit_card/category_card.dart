@@ -99,9 +99,6 @@ class CategoryCardViewState extends State<CategoryCardView> {
     return CategoryBarStep.closedTopCategoryAndCategory;
   }
 
-//      };
-//    );
-
   @override
   void dispose() {
     scrollController?.dispose();

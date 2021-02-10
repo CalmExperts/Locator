@@ -6,8 +6,6 @@ import 'package:locator/resources/dimensions.dart';
 
 class CategoryButton extends StatefulWidget {
   final Category category;
-  final Color activeColor;
-  final Color inactiveColor;
   final bool isActive;
   final VoidCallback onTap;
   final bool _isFilter;
@@ -15,8 +13,6 @@ class CategoryButton extends StatefulWidget {
   const CategoryButton(
     this.category, {
     Key key,
-    this.activeColor = darkAccent,
-    this.inactiveColor = Colors.white,
     this.onTap,
     @required this.isActive,
   })  : _isFilter = false,
@@ -33,8 +29,6 @@ class CategoryButton extends StatefulWidget {
           description: null,
           level: CategoryLevel.top,
         ),
-        activeColor = darkAccent,
-        inactiveColor = Colors.white,
         isActive = false,
         _isFilter = true;
 
@@ -47,8 +41,6 @@ class CategoryButton extends StatefulWidget {
           other is CategoryButton &&
           runtimeType == other.runtimeType &&
           category == other.category &&
-          activeColor == other.activeColor &&
-          inactiveColor == other.inactiveColor &&
           isActive == other.isActive;
 }
 
@@ -72,6 +64,7 @@ class _CategoryButtonState extends State<CategoryButton> {
               ? EdgeInsets.symmetric(horizontal: 5)
               : null,
           decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             borderRadius: widget.category.level == CategoryLevel.top
                 ? borderRadius15
                 : null,
@@ -80,7 +73,7 @@ class _CategoryButtonState extends State<CategoryButton> {
                 : BoxShape.rectangle,
           ),
           child: InkWell(
-            splashColor: disabled,
+            splashColor: Theme.of(context).disabledColor,
             child: CategoryIcon(category: widget.category),
             onTap: widget.onTap,
           ),

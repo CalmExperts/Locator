@@ -6,7 +6,7 @@ import 'colors.dart';
 ThemeData darkModeTheme = ThemeData(
   primaryColor: primaryColor,
   accentColor: secondaryColor,
-  //splashColor:
+  splashColor: splashColor,
   disabledColor: disabledColor,
   dividerColor: dividerColor,
   errorColor: errorColor,
@@ -24,29 +24,26 @@ ButtonThemeData _buttonThemeData = ButtonThemeData(
   buttonColor: primaryColor,
 );
 
-TextTheme _textTheme = TextTheme();
+TextTheme _textTheme = TextTheme(
+  button: TextStyle(
+    fontWeight: FontWeight.w400,
+    color: primaryTextColor,
+  ),
+  bodyText1: TextStyle(
+    fontWeight: FontWeight.w400,
+    color: primaryTextColor,
+  ),
+  headline6: TextStyle(
+    fontWeight: FontWeight.w600,
+    color: primaryTextColor,
+  ),
+  subtitle2: GoogleFonts.abel(
+    color: primaryTextColor,
+  ),
+);
 
 IconThemeData _iconThemeData = IconThemeData(
   color: baseLightColor,
 );
 
 InputDecorationTheme _inputDecorationTheme = InputDecorationTheme();
-
-// ThemeData locatorTheme = ThemeData(
-//   buttonColor: white,
-//   accentColor: darkAccent,
-//   splashColor: darkAccent,
-//   disabledColor: disabled,
-//   dividerColor: primaryText,
-//   errorColor: error,
-//   inputDecorationTheme: InputDecorationTheme(focusColor: darkAccent),
-//   textTheme: TextTheme(
-//     subtitle2: GoogleFonts.abel(color: darkAccent),
-//     headline6: TextStyle(
-//       fontWeight: FontWeight.w600,
-//       color: primaryText,
-//     ),
-//     bodyText1: TextStyle(fontWeight: FontWeight.w400, color: primaryText),
-//     button: TextStyle(fontWeight: FontWeight.w400, color: darkAccent),
-//   ),
-// );

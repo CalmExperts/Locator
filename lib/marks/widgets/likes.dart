@@ -26,9 +26,14 @@ class Likes extends StatelessWidget {
         return Column(
           children: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.sentiment_satisfied,
-                color: mark != null && mark.isLike ? darkAccent : primaryText,
+              icon: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Icon(
+                  Icons.sentiment_satisfied,
+                  color: mark != null && mark.isLike
+                      ? Theme.of(context).primaryColor
+                      : primaryText,
+                ),
               ),
               onPressed: () {
                 if (mark == null || !mark.isLike) like();
@@ -49,11 +54,14 @@ class Likes extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(
-                Icons.sentiment_dissatisfied,
-                color: mark != null && mark.type == 'dislike'
-                    ? error
-                    : primaryText,
+              icon: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Icon(
+                  Icons.sentiment_dissatisfied,
+                  color: mark != null && mark.type == 'dislike'
+                      ? Theme.of(context).errorColor
+                      : primaryText,
+                ),
               ),
               onPressed: dislike,
             ),

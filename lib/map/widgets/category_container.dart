@@ -37,7 +37,7 @@ class CategoryContainer extends StatelessWidget {
         decoration: decoration,
         child: FlatButton(
           padding: EdgeInsets.zero,
-          splashColor: disabled,
+          splashColor: Theme.of(context).disabledColor,
           onPressed: onTap,
           onLongPress: onLongPress,
           child: Column(

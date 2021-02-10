@@ -14,8 +14,10 @@ const double greatIconSize = 96;
 const Duration animationDuration = Duration(milliseconds: 300);
 const double categoryButtonSize = 48.0;
 const double categoryBalloonSize = 90.0;
-final BoxDecoration lightGrayRoundedRectangleDecoration = BoxDecoration(
-  borderRadius: borderRadius15,
-  color: Colors.white,
-  border: Border.all(color: grayBorder, width: 2.5),
-);
+BoxDecoration rectangleDecoration({BuildContext context}) {
+  return BoxDecoration(
+    borderRadius: borderRadius15,
+    color: Theme.of(context).primaryColor,
+    border: Border.all(color: Theme.of(context).primaryColor, width: 2.5),
+  );
+}

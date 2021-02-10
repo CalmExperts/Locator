@@ -23,7 +23,10 @@ class _OptionsPageState extends State<OptionsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Account'),
+                    Text(
+                      'Account',
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
                     UserAvatar(),
                   ],
                 ),
