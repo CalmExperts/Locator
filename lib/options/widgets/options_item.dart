@@ -17,8 +17,6 @@ class OptionsItem extends StatelessWidget {
               onTap: function,
               child: Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: darkAccent))),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: child,

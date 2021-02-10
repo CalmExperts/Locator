@@ -75,7 +75,6 @@ class _CategoryButtonState extends State<CategoryButton> {
             borderRadius: widget.category.level == CategoryLevel.top
                 ? borderRadius15
                 : null,
-            border: widget.isActive ? Border.all(color: darkAccent) : null,
             shape: widget.category.level == CategoryLevel.category
                 ? BoxShape.circle
                 : BoxShape.rectangle,

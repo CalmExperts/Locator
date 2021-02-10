@@ -20,9 +20,14 @@ class _FindMeState extends State<FindMe> {
 //          widget.onFindMe();
         },
         child: Container(
-          child: Icon(Icons.gps_not_fixed),
+          child: IconTheme(
+            data: Theme.of(context).iconTheme,
+            child: Icon(
+              Icons.gps_not_fixed,
+            ),
+          ),
           decoration: BoxDecoration(
-              color: Theme.of(context).buttonColor,
+              color: Theme.of(context).primaryColor,
               borderRadius: borderRadius15),
           height: sideBarSize,
           width: double.infinity,
