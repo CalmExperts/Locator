@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:locator/app_injections.dart';
 import 'auth/auth.dart';
 import 'general/bloc_globals.dart';
 import 'map/bloc/map_bloc.dart';
@@ -34,18 +35,17 @@ class Locator extends StatefulWidget {
 }
 
 class _LocatorState extends State<Locator> {
+  AppInjections appInjections = AppInjections();
+
   @override
   void initState() {
-    GetIt.I
-      ..registerLazySingleton<CategoryService>(() => CategoryService())
-      ..registerLazySingleton<MarkService>(() => MarkService());
+    appInjections.registerSingleton();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-
     return Provider<Auth>(
       create: (context) => Auth()..getCurrentUser(),
       child: MaterialApp(

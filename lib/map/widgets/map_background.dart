@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/auth/auth.dart';
 import 'package:locator/auth/route/account_page.dart';
@@ -8,6 +9,7 @@ import 'package:locator/map/bloc/map_bloc.dart';
 import 'package:locator/map/models/coordinates.dart';
 import 'package:locator/map/models/drop.dart';
 import 'package:locator/map/services/drop_service.dart';
+import 'package:locator/map/services/location_service.dart';
 import 'package:locator/map/widgets/drop_card.dart';
 import 'package:locator/map/widgets/edit_card/bloc/card_bloc.dart';
 import 'package:locator/map/widgets/edit_card/create_card.dart';
@@ -37,6 +39,18 @@ class MapBackground extends StatefulWidget {
 }
 
 class MapBackgroundState extends State<MapBackground> {
+  LocationService locationService = GetIt.I.get<LocationService>();
+
+  void _getCameraPosition() async {
+    await locationService.getCameraPosition();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCameraPosition();
+  }
+
   GoogleMapController mapController;
 
   Drop tappedDrop;
@@ -89,15 +103,19 @@ class MapBackgroundState extends State<MapBackground> {
               // change to show all drops within a certain distance.
             }
             final data = snapshot.data ?? [];
+            final cameraPosition = locationService?.cameraPosition;
+
+            if (cameraPosition == null) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
             return GoogleMap(
               zoomControlsEnabled: false,
               key: mapKey,
               compassEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(43.66665970807569, -79.38109528273344),
-                zoom: 16,
-              ),
+              initialCameraPosition: cameraPosition,
               markers: Set.from([
                 for (final drop in data)
                   if (drop.coordinates != null)
