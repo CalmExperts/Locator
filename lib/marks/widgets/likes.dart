@@ -5,7 +5,7 @@ import 'package:locator/auth/models/user.dart';
 import 'package:locator/map/models/drop.dart';
 import 'package:locator/marks/models/mark.dart';
 import 'package:locator/marks/services/like_service.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:provider/provider.dart';
 
 class Likes extends StatelessWidget {
@@ -32,7 +32,7 @@ class Likes extends StatelessWidget {
                   Icons.sentiment_satisfied,
                   color: mark != null && mark.isLike
                       ? Theme.of(context).primaryColor
-                      : primaryText,
+                      : Theme.of(context).highlightColor,
                 ),
               ),
               onPressed: () {
@@ -60,7 +60,7 @@ class Likes extends StatelessWidget {
                   Icons.sentiment_dissatisfied,
                   color: mark != null && mark.type == 'dislike'
                       ? Theme.of(context).errorColor
-                      : primaryText,
+                      : Theme.of(context).highlightColor,
                 ),
               ),
               onPressed: dislike,
