@@ -23,7 +23,7 @@ class CommentCardView extends StatelessWidget {
           Container(
             child: TextField(
               controller: openController,
-              cursorColor: darkAccent,
+              cursorColor: Theme.of(context).primaryColor,
               maxLength: 140,
               maxLines: null,
               decoration: InputDecoration(

@@ -133,7 +133,7 @@ class _CreateDropCardState extends State<CreateDropCard> {
           child: LinearPercentIndicator(
             lineHeight: 3,
             percent: progressPercentage(state),
-            progressColor: darkAccent,
+            progressColor: Theme.of(context).primaryColor,
             animateFromLastPercent: true,
             animation: true,
             animationDuration: 500,

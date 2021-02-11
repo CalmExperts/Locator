@@ -42,7 +42,7 @@ class _CategoryBalloonState extends State<CategoryBalloon>
 //        });
 //      });
 //    _balloonAnimation =
-//        ColorTween(begin: locatorTheme.buttonColor, end: darkAccent)
+//        ColorTween(begin: locatorTheme.buttonColor, end: Theme.of(context).primaryColor)
 //            .animate(_controller);
 //    _childAnimation =
 //        ColorTween(begin: primaryText, end: locatorTheme.buttonColor)
@@ -72,7 +72,7 @@ class _CategoryBalloonState extends State<CategoryBalloon>
               ? borderRadius15
               : null,
           border: widget.isActive
-              ? Border.all(color: darkAccent, width: 1.5)
+              ? Border.all(color: Theme.of(context).primaryColor, width: 1.5)
               : null,
           shape: isCategory ? BoxShape.circle : BoxShape.rectangle,
         ),

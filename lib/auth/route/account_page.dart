@@ -111,7 +111,7 @@ class LoggedInLayout extends StatelessWidget {
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200,
-          backgroundColor: darkAccent,
+          backgroundColor: Theme.of(context).primaryColor,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(user.name),
             background: Row(

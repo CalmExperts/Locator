@@ -63,7 +63,9 @@ class _AnimatedListInfoState extends State<AnimatedListInfo> {
     return Container(
       width: 100,
       height: 100,
-      decoration: BoxDecoration(color: Colors.red, border: Border.all()),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          border: Border.all(color: Theme.of(context).primaryColor)),
       child: Text(
         items[index].toString(),
         style: TextStyle(fontSize: 30),

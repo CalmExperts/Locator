@@ -25,7 +25,7 @@ class LocationCardView extends StatelessWidget {
         Container(
           child: TextField(
             controller: locationController,
-            cursorColor: darkAccent,
+            cursorColor: Theme.of(context).primaryColor,
             maxLength: 140,
             maxLines: null,
             textCapitalization: TextCapitalization.sentences,

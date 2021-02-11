@@ -3,29 +3,23 @@ import 'package:locator/resources/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final Color selectedColor;
-  final Color borderColor;
-  final Color deselectedColor;
   final Widget child;
 
   const PrimaryButton({
     Key key,
-    this.onPressed,
-    this.selectedColor = white,
-    this.borderColor = darkAccent,
-    this.deselectedColor,
     this.child,
+    this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
       onPressed: onPressed,
-      color: selectedColor,
+      color: Theme.of(context).highlightColor,
       child: child,
-      borderSide: BorderSide(color: borderColor),
-      textColor: borderColor,
-      highlightedBorderColor: borderColor,
+      borderSide: BorderSide(color: Theme.of(context).primaryColor),
+      textColor: Theme.of(context).primaryColor,
+      highlightedBorderColor: Theme.of(context).primaryColor,
     );
   }
 }

@@ -30,10 +30,11 @@ class SubcategoryTile extends StatelessWidget {
         size: iconSize,
       ),
       label: subcategory.name,
-      labelStyle: TextStyle(color: darkAccent, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(
+          color: Theme.of(context).highlightColor, fontWeight: FontWeight.bold),
       margin: margin,
       width: 100,
-      decoration: lightGrayRoundedRectangleDecoration,
+      decoration: rectangleDecoration(context: context),
       onTap: onTap,
       onLongPress: onLongPress,
     );

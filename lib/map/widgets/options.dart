@@ -28,14 +28,24 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
       borderRadius: borderRadius15,
       child: InkWell(
         onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => OptionsPage())),
+          context,
+          MaterialPageRoute(
+            builder: (context) => OptionsPage(),
+          ),
+        ),
         child: Container(
-          child: Icon(Icons.menu),
+          child: IconTheme(
+            data: Theme.of(context).iconTheme,
+            child: Icon(
+              Icons.menu,
+              color: Theme.of(context).highlightColor,
+            ),
+          ),
           height: sideBarSize,
           width: double.infinity,
         ),
       ),
-      color: Theme.of(context).buttonColor,
+      color: Theme.of(context).primaryColor,
       elevation: elevation,
     );
   }

@@ -117,7 +117,7 @@ class CategoryBarState extends State<CategoryBar>
         duration: animationDuration,
         height: widget.scrollDirection == Axis.vertical ? currentSize : null,
         width: widget.scrollDirection == Axis.horizontal ? currentSize : null,
-        decoration: lightGrayRoundedRectangleDecoration,
+        decoration: rectangleDecoration(context: context),
         child: buildChild(),
       ),
       elevation: isVertical ? elevation : 0,

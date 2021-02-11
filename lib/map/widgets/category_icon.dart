@@ -13,18 +13,22 @@ class CategoryIcon extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      SizedBox(height: size, width: size, child: buildIcon(category.name));
+  Widget build(BuildContext context) => SizedBox(
+      height: size, width: size, child: buildIcon(category.name, context));
 
-  Widget buildIcon(String categoryName) {
+  Widget buildIcon(String categoryName, BuildContext context) {
     final icon = categoryIcons[categoryName];
     if (icon != null) {
       if (icon is IconData) {
         return SizedBox(
+          child: IconTheme(
+            data: Theme.of(context).iconTheme,
             child: Icon(
-          icon,
-          size: size,
-        )).expandForFinite(height: 48, width: 48);
+              icon,
+              size: size,
+            ),
+          ),
+        ).expandForFinite(height: 48, width: 48);
       }
       if (icon is List<IconData>) {
         return LayeredIcon<IconData>(
