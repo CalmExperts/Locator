@@ -1,25 +1,32 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/general/bloc_globals.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/services/category_service.dart';
-import 'package:locator_app/map/services/drop_service.dart';
-import 'package:locator_app/map/widgets/edit_card/animated_list_info.dart';
-import 'package:locator_app/map/widgets/edit_card/bloc/card_bloc.dart';
-import 'package:locator_app/marks/services/like_service.dart';
-import 'package:locator_app/resources/colors.dart' show locatorTheme;
-import 'package:locator_app/utils/firestore_utils.dart';
-import 'package:locator_app/visual_widget_tests/create_card_tests.dart';
+import 'package:locator/app_injections.dart';
+import 'auth/auth.dart';
+import 'general/bloc_globals.dart';
+import 'map/bloc/map_bloc.dart';
+import 'map/services/category_service.dart';
+import 'map/services/drop_service.dart';
+import 'map/widgets/edit_card/animated_list_info.dart';
+import 'map/widgets/edit_card/bloc/card_bloc.dart';
+import 'marks/services/like_service.dart';
+import 'resources/colors.dart' show locatorTheme;
+import 'resources/themes.dart';
+import 'utils/firestore_utils.dart';
+import 'visual_widget_tests/create_card_tests.dart';
 import 'package:provider/provider.dart';
 import 'package:mockito/mockito.dart';
 import 'locale/locales.dart';
 import 'map/route/map.dart';
 
-void main() {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+import 'package:flutter/services.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(Locator());
 }
 
@@ -29,19 +36,19 @@ class Locator extends StatefulWidget {
 }
 
 class _LocatorState extends State<Locator> {
+  AppInjections appInjections = AppInjections();
+
   @override
   void initState() {
-    GetIt.I
-      ..registerLazySingleton<CategoryService>(() => CategoryService())
-      ..registerLazySingleton<MarkService>(() => MarkService());
-
+    appInjections.registerSingleton();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Provider<Auth>(
-      create: (context) => Auth()..silently(),
+      create: (context) => Auth()..getCurrentUser(),
       child: MaterialApp(
         localizationsDelegates: [
           LocsDelegate(),
@@ -54,7 +61,7 @@ class _LocatorState extends State<Locator> {
         ],
         onGenerateTitle: (BuildContext context) => Locs.of(context).appName,
         debugShowCheckedModeBanner: false,
-        theme: locatorTheme,
+        theme: darkModeTheme,
         home: MultiProvider(
           providers: [
             ProxyProvider<Auth, DropService>(
@@ -145,8 +152,8 @@ class _LocatorState extends State<Locator> {
                     ),
                   ),
                   backgroundColor: Colors.transparent,
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  body: Container(
+                    // padding: const EdgeInsets.all(18.0),
                     child: MapPage(),
                   ),
                 ),

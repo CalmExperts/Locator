@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/services/distance_service.dart';
-import 'package:locator_app/marks/widgets/likes.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/auth/auth.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/services/distance_service.dart';
+import 'package:locator/marks/widgets/likes.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
+import 'package:locator/utils/extensions.dart';
 import 'package:provider/provider.dart';
 
 class DropCard extends StatefulWidget {
@@ -71,7 +71,7 @@ class BottomSheetHandle extends StatelessWidget {
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
-          color: color ?? Colors.grey[200],
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(4),
         ),
       );

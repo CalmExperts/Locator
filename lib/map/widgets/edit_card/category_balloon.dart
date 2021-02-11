@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/category_container.dart';
-import 'package:locator_app/map/widgets/category_icon.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/category_container.dart';
+import 'package:locator/map/widgets/category_icon.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
 
 //const double size = 60;
 
@@ -42,7 +42,7 @@ class _CategoryBalloonState extends State<CategoryBalloon>
 //        });
 //      });
 //    _balloonAnimation =
-//        ColorTween(begin: locatorTheme.buttonColor, end: darkAccent)
+//        ColorTween(begin: locatorTheme.buttonColor, end: Theme.of(context).primaryColor)
 //            .animate(_controller);
 //    _childAnimation =
 //        ColorTween(begin: primaryText, end: locatorTheme.buttonColor)
@@ -72,7 +72,7 @@ class _CategoryBalloonState extends State<CategoryBalloon>
               ? borderRadius15
               : null,
           border: widget.isActive
-              ? Border.all(color: darkAccent, width: 1.5)
+              ? Border.all(color: Theme.of(context).primaryColor, width: 1.5)
               : null,
           shape: isCategory ? BoxShape.circle : BoxShape.rectangle,
         ),

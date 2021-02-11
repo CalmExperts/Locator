@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/general/widgets/platform_builder.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/general/widgets/platform_builder.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
 
 enum OptionSelectorState { open, closed }
 
@@ -32,20 +32,21 @@ class OptionSelector<T> extends StatelessWidget {
   OptionSelectorState get state =>
       value == null ? OptionSelectorState.open : OptionSelectorState.closed;
 
-  final Border _selectedBorder = Border.all(color: darkAccent, width: 3);
-
   @override
   Widget build(BuildContext context) {
+    final Border _selectedBorder =
+        Border.all(color: Theme.of(context).primaryColor, width: 3);
     return Container(
-      decoration: lightGrayRoundedRectangleDecoration.copyWith(
-          borderRadius: BorderRadius.circular(15)),
+      decoration: rectangleDecoration(context: context)
+          .copyWith(borderRadius: BorderRadius.circular(15)),
       height: 100,
       child: Row(
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                border: Border.all(color: grayBorder, width: 3),
+                border:
+                    Border.all(color: Theme.of(context).primaryColor, width: 3),
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             child: leading,
           ),

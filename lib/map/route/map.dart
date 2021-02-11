@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/category_bar.dart';
-import 'package:locator_app/map/widgets/edit_card/subcategory_scroll_view.dart';
-import 'package:locator_app/map/widgets/find_me.dart';
-import 'package:locator_app/map/widgets/map_background.dart';
-import 'package:locator_app/map/widgets/options.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/category_bar.dart';
+import 'package:locator/map/widgets/edit_card/subcategory_scroll_view.dart';
+import 'package:locator/map/widgets/find_me.dart';
+import 'package:locator/map/widgets/map_background.dart';
+import 'package:locator/map/widgets/options.dart';
+import 'package:locator/resources/dimensions.dart';
 
 class MapPage extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/widgets/category_icon.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/widgets/category_icon.dart';
+import 'package:locator/utils/extensions.dart';
 
 class SummaryCardView extends StatelessWidget {
   final Drop drop;
@@ -38,6 +38,7 @@ class SummaryCardView extends StatelessWidget {
               subtitle: Text(drop?.location ?? 'Location not provided'),
             ),
             Container(
+              color: Theme.of(context).primaryColor,
               height: 100,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -75,9 +76,10 @@ class SummaryTagTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            color: Colors.red,
+            color: Theme.of(context).primaryColor,
             width: borderWidth,
           ),
         ),
@@ -109,7 +111,10 @@ class SummaryCategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        decoration: BoxDecoration(border: Border.all(), shape: BoxShape.circle),
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            border: Border.all(color: Theme.of(context).primaryColor),
+            shape: BoxShape.circle),
         child: CategoryIcon(
           category: drop.category,
           size: 48,

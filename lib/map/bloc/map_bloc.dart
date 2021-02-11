@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show required;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locator_app/general/bloc_globals.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/services/category_service.dart';
-import 'package:locator_app/map/widgets/map_background.dart';
+import 'package:locator/general/bloc_globals.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/services/category_service.dart';
+import 'package:locator/map/widgets/map_background.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'map_event.dart';
@@ -25,7 +25,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   static MapBloc of(BuildContext context) => BlocProvider.of<MapBloc>(context);
 
-  MapBloc({@required this.categoryService}) {
+  MapBloc({@required this.categoryService}) : super(MapInitial()) {
     _mapStreamSubscription = CombineLatestStream.combine5<List<Category>,
         List<Category>, Category, Category, Subcategory, MapState>(
       categoryService.topCategoryStream,

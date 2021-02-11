@@ -1,4 +1,4 @@
-import 'package:locator_app/map/models/range.dart';
+import 'package:locator/map/models/range.dart';
 
 class TimeRange extends RangeBase<DateTime> {
   TimeRange(start, end) : super(start, end);

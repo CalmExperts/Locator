@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/resources/constants.dart';
+import 'package:locator/auth/auth.dart';
+import 'package:locator/resources/constants.dart';
 import 'package:provider/provider.dart';
 
 class UserAvatar extends StatelessWidget {
@@ -20,7 +20,8 @@ class UserAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: NetworkImage(
-                      Provider.of<Auth>(context).currentUser.picUrl),
+                    Provider.of<Auth>(context).currentUser.picUrl,
+                  ),
                   fit: BoxFit.fill),
             ),
           );

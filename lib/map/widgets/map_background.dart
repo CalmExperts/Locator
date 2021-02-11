@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/auth/route/account_page.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/models/coordinates.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/services/drop_service.dart';
-import 'package:locator_app/map/widgets/drop_card.dart';
-import 'package:locator_app/map/widgets/edit_card/bloc/card_bloc.dart';
-import 'package:locator_app/map/widgets/edit_card/create_card.dart';
-import 'package:locator_app/map/widgets/loading_failed.dart';
-import 'package:locator_app/resources/dimensions.dart';
-import 'package:locator_app/resources/enums.dart';
-import 'package:locator_app/utils/dialog.dart';
-import 'package:locator_app/utils/exceptions.dart';
-import 'package:locator_app/utils/functions.dart' show navigateTo;
+import 'package:locator/auth/auth.dart';
+import 'package:locator/auth/route/account_page.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/models/coordinates.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/services/drop_service.dart';
+import 'package:locator/map/services/location_service.dart';
+import 'package:locator/map/widgets/drop_card.dart';
+import 'package:locator/map/widgets/edit_card/bloc/card_bloc.dart';
+import 'package:locator/map/widgets/edit_card/create_card.dart';
+import 'package:locator/map/widgets/loading_failed.dart';
+import 'package:locator/resources/dimensions.dart';
+import 'package:locator/resources/enums.dart';
+import 'package:locator/utils/dialog.dart';
+import 'package:locator/utils/exceptions.dart';
+import 'package:locator/utils/functions.dart' show navigateTo;
 import 'package:provider/provider.dart';
 
 typedef ShowBottomSheet = PersistentBottomSheetController Function(
@@ -36,6 +40,30 @@ class MapBackground extends StatefulWidget {
 }
 
 class MapBackgroundState extends State<MapBackground> {
+  LocationService locationService = GetIt.I.get<LocationService>();
+  CameraPosition cameraPosition;
+
+  _getCameraPosition() async {
+    // return await locationService.getCameraPosition();
+    await Geolocator.getCurrentPosition().then((value) {
+      setState(() {
+        cameraPosition = CameraPosition(
+          target: LatLng(
+            value.latitude,
+            value.longitude,
+          ),
+          zoom: 15.0,
+        );
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCameraPosition();
+  }
+
   GoogleMapController mapController;
 
   Drop tappedDrop;
@@ -63,7 +91,7 @@ class MapBackgroundState extends State<MapBackground> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(
-      condition: (oldState, newState) {
+      buildWhen: (oldState, newState) {
         return (oldState.activeTopCategory != newState.activeTopCategory ||
                 oldState.activeCategory != newState.activeCategory ||
                 oldState.activeSubcategory != newState.activeSubcategory) &&
@@ -89,13 +117,22 @@ class MapBackgroundState extends State<MapBackground> {
             }
             final data = snapshot.data ?? [];
 
+            if (cameraPosition == null) {
+              return Container(
+                color: Theme.of(context).backgroundColor,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+              );
+            }
+
             return GoogleMap(
+              zoomControlsEnabled: false,
               key: mapKey,
               compassEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(43.66665970807569, -79.38109528273344),
-                zoom: 16,
-              ),
+              initialCameraPosition: cameraPosition,
               markers: Set.from([
                 for (final drop in data)
                   if (drop.coordinates != null)
@@ -125,6 +162,7 @@ class MapBackgroundState extends State<MapBackground> {
                 setState(() {
                   mapController = controller;
                 });
+                _activateMapDarkMode();
               },
               onLongPress: (LatLng position) async {
                 var currentUser =
@@ -164,6 +202,18 @@ class MapBackgroundState extends State<MapBackground> {
         );
       },
     );
+  }
+
+  _activateMapDarkMode() {
+    getJsonForMapMode('assets/map_dark_mode.json').then(setMapStyle);
+  }
+
+  Future<String> getJsonForMapMode(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String mapStyle) {
+    mapController.setMapStyle(mapStyle);
   }
 
   void _showViewDropCard() {

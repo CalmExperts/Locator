@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/widgets/category_container.dart';
-import 'package:locator_app/map/widgets/category_icon.dart';
-import 'package:locator_app/resources/colors.dart';
-import 'package:locator_app/resources/dimensions.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/category_container.dart';
+import 'package:locator/map/widgets/category_icon.dart';
+import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/dimensions.dart';
 
 class SubcategoryTile extends StatelessWidget {
   final Subcategory subcategory;
@@ -30,10 +30,11 @@ class SubcategoryTile extends StatelessWidget {
         size: iconSize,
       ),
       label: subcategory.name,
-      labelStyle: TextStyle(color: darkAccent, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(
+          color: Theme.of(context).highlightColor, fontWeight: FontWeight.bold),
       margin: margin,
       width: 100,
-      decoration: lightGrayRoundedRectangleDecoration,
+      decoration: rectangleDecoration(context: context),
       onTap: onTap,
       onLongPress: onLongPress,
     );

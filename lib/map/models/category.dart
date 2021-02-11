@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: implementation_imports
 import 'package:cloud_firestore_platform_interface/src/method_channel/method_channel_document_reference.dart';
 import 'package:flutter/foundation.dart';
-import 'package:locator_app/db/db.dart';
-import 'package:locator_app/map/models/model.dart';
-import 'package:locator_app/utils/extensions.dart';
+import 'package:locator/db/db.dart';
+import 'package:locator/map/models/model.dart';
+import 'package:locator/utils/extensions.dart';
 
 class Category extends Model implements Comparable {
   final String name;
@@ -42,12 +42,12 @@ class Category extends Model implements Comparable {
     @required this.tags,
   }) : assert(name != null);
 
-  String get id => documentReference.documentID;
+  String get id => documentReference.id;
 
   bool get hasChildren => childrenCategories?.isNotEmpty == true;
 
   factory Category.fromDocument(DocumentSnapshot documentSnapshot) {
-    final Map data = documentSnapshot.data;
+    final Map data = documentSnapshot.data();
     CategoryLevel categoryLevel = stringToCategoryLevelMap[data['level']];
     List<DocumentReference> childrenCategories;
     if (categoryLevel == CategoryLevel.top) {
@@ -78,7 +78,7 @@ class Category extends Model implements Comparable {
     }
     var documentReference = data['documentReference'];
     if (documentReference is MethodChannelDocumentReference) {
-      documentReference = firestore.document(documentReference.path);
+      documentReference = firestore.doc(documentReference.path);
     }
     List<DocumentReference> childrenCategories;
     if (data['categoryLevel'] == CategoryLevel.top) {
@@ -154,9 +154,9 @@ class Subcategory extends Category {
     }
     return Subcategory(
       documentReference: document.reference,
-      name: data['name'] as String,
-      description: data['description'] ?? '',
-      tags: data['tags'],
+      name: data()['name'] as String,
+      description: data()['description'] ?? '',
+      tags: data()['tags'],
     );
   }
 
@@ -166,7 +166,7 @@ class Subcategory extends Category {
     }
     var documentReference = data['documentReference'];
     if (documentReference is MethodChannelDocumentReference) {
-      documentReference = firestore.document(documentReference.path);
+      documentReference = firestore.doc(documentReference.path);
     }
 
     return Subcategory(

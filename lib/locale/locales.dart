@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:locator_app/l10n/messages_all.dart';
+import 'package:locator/l10n/messages_all.dart';
 
 class Locs {
   static Future<Locs> load(Locale locale) {

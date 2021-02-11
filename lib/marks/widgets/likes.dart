@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:locator_app/auth/auth.dart';
-import 'package:locator_app/auth/models/user.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/marks/models/mark.dart';
-import 'package:locator_app/marks/services/like_service.dart';
-import 'package:locator_app/resources/colors.dart';
+import 'package:locator/auth/auth.dart';
+import 'package:locator/auth/models/user.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/marks/models/mark.dart';
+import 'package:locator/marks/services/like_service.dart';
+import 'package:locator/resources/colors.dart';
 import 'package:provider/provider.dart';
 
 class Likes extends StatelessWidget {
   final Drop drop;
-  final User user;
+  final UserModel user;
 
   const Likes({Key key, @required this.drop, @required this.user})
       : super(key: key);
@@ -26,9 +26,14 @@ class Likes extends StatelessWidget {
         return Column(
           children: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.sentiment_satisfied,
-                color: mark != null && mark.isLike ? darkAccent : primaryText,
+              icon: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Icon(
+                  Icons.sentiment_satisfied,
+                  color: mark != null && mark.isLike
+                      ? Theme.of(context).primaryColor
+                      : primaryText,
+                ),
               ),
               onPressed: () {
                 if (mark == null || !mark.isLike) like();
@@ -49,11 +54,14 @@ class Likes extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(
-                Icons.sentiment_dissatisfied,
-                color: mark != null && mark.type == 'dislike'
-                    ? error
-                    : primaryText,
+              icon: IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Icon(
+                  Icons.sentiment_dissatisfied,
+                  color: mark != null && mark.type == 'dislike'
+                      ? Theme.of(context).errorColor
+                      : primaryText,
+                ),
               ),
               onPressed: dislike,
             ),

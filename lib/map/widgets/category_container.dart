@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator_app/resources/colors.dart';
+import 'package:locator/resources/colors.dart';
 
 class CategoryContainer extends StatelessWidget {
   final Widget icon;
@@ -37,7 +37,7 @@ class CategoryContainer extends StatelessWidget {
         decoration: decoration,
         child: FlatButton(
           padding: EdgeInsets.zero,
-          splashColor: disabled,
+          splashColor: Theme.of(context).disabledColor,
           onPressed: onTap,
           onLongPress: onLongPress,
           child: Column(

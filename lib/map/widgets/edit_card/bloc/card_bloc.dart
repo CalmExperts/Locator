@@ -8,16 +8,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:locator_app/general/bloc_globals.dart';
-import 'package:locator_app/map/bloc/map_bloc.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/models/coordinates.dart';
-import 'package:locator_app/map/models/drop.dart';
-import 'package:locator_app/map/services/category_service.dart';
-import 'package:locator_app/map/services/drop_service.dart';
-import 'package:locator_app/map/widgets/edit_card/subcategory_scroll_view.dart';
-import 'package:locator_app/map/widgets/map_background.dart';
-import 'package:locator_app/resources/enums.dart';
+import 'package:locator/general/bloc_globals.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/models/coordinates.dart';
+import 'package:locator/map/models/drop.dart';
+import 'package:locator/map/services/category_service.dart';
+import 'package:locator/map/services/drop_service.dart';
+import 'package:locator/map/widgets/edit_card/subcategory_scroll_view.dart';
+import 'package:locator/map/widgets/map_background.dart';
+import 'package:locator/resources/enums.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'card_event.dart';
@@ -33,7 +33,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     @required this.dropService,
     CardState initialState,
     @required CategoryService categoryService,
-  }) : _initialState = initialState {
+  })  : _initialState = initialState,
+        super(null) {
     _categoryStreamSubscription =
         CombineLatestStream.combine3<Category, Category, Subcategory, List>(
                 categoryService.activeTopCategoryStream,
@@ -77,7 +78,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         debugPrint('Creating drop.');
 
         final dropReference = await dropService.create(state.drop);
-        debugPrint('Created drop. ID: ${dropReference.documentID}');
+        debugPrint('Created drop. ID: ${dropReference.id}');
       } else {
         dropService.update(state.drop);
         debugPrint('Updated drop. ID: ${state.drop.id}');

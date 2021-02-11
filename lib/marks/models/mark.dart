@@ -1,4 +1,4 @@
-import 'package:locator_app/map/models/model.dart';
+import 'package:locator/map/models/model.dart';
 import 'package:quiver/core.dart';
 
 abstract class Mark implements Model {

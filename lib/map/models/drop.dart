@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locator_app/map/models/category.dart';
-import 'package:locator_app/map/models/coordinates.dart';
-import 'package:locator_app/map/models/model.dart';
+import 'package:locator/map/models/category.dart';
+import 'package:locator/map/models/coordinates.dart';
+import 'package:locator/map/models/model.dart';
 
 class Drop extends Model {
   final Category topCategory;
@@ -42,7 +42,7 @@ class Drop extends Model {
   final DocumentReference documentReference;
 
   // id of Google Maps drop marker this drop is depicted with
-  String get id => documentReference.documentID;
+  String get id => documentReference.id;
 
   Drop({
     this.topCategory,
@@ -62,7 +62,7 @@ class Drop extends Model {
   });
 
   factory Drop.fromDocument(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data;
+    Map<String, dynamic> data = document.data();
     // Use this if we start getting null data showing up in the db.
 //    if (data.entries.where((element) => element.value == null).length > 4) {
 //      document.reference.delete();

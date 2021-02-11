@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locator_app/db/db.dart' show firestore;
-import 'package:locator_app/map/models/category.dart';
+import 'package:locator/db/db.dart' show firestore;
+import 'package:locator/map/models/category.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CategoryService {
@@ -101,15 +101,14 @@ class CategoryService {
         .where('level', isEqualTo: 'top')
         .snapshots()
         .map((qs) =>
-            qs.documents.map((ds) => Category.fromDocument(ds)).toList()
-              ..sort());
+            qs.docs.map((ds) => Category.fromDocument(ds)).toList()..sort());
   }
 
   void uid() {
-    firestore.collection('type').getDocuments().then((qs) {
-      qs.documents.forEach((ds) {
-        var id = ds.documentID;
-        firestore.collection('type').document(id).updateData({
+    firestore.collection('type').get().then((qs) {
+      qs.docs.forEach((ds) {
+        var id = ds.id;
+        firestore.collection('type').doc(id).update({
           'uid': id,
         });
       });
