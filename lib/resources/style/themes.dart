@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locator/resources/style/text_size.dart';
 
 import 'colors.dart';
 
 ThemeData darkModeTheme = ThemeData(
   primaryColor: primaryColor,
-  accentColor: secondaryColor,
+  primaryColorLight: primaryColorLight,
+  primaryColorDark: primaryColorDark,
+  accentColor: brandColor,
   splashColor: splashColor,
   disabledColor: disabledColor,
   dividerColor: dividerColor,
@@ -36,6 +39,13 @@ TextTheme _textTheme = TextTheme(
   headline6: TextStyle(
     fontWeight: FontWeight.w600,
     color: primaryTextColor,
+  ),
+  subtitle1: GoogleFonts.abel(
+    textStyle: TextStyle(
+      color: secondaryTextColor,
+      fontSize: TextSize.large,
+      fontWeight: FontWeight.w400,
+    ),
   ),
   subtitle2: GoogleFonts.abel(
     color: primaryTextColor,

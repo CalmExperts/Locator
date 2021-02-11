@@ -14,7 +14,9 @@ class _OptionsPageState extends State<OptionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).accentColor,
+      ),
       body: SafeArea(
         child: Center(
           child: Column(

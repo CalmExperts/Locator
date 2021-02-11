@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 
 class CategoryContainer extends StatelessWidget {
   final Widget icon;

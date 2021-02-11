@@ -3,7 +3,7 @@ import 'package:locator/auth/auth.dart';
 import 'package:locator/map/models/drop.dart';
 import 'package:locator/map/services/distance_service.dart';
 import 'package:locator/marks/widgets/likes.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/dimensions.dart';
 import 'package:locator/utils/extensions.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +28,7 @@ class _DropCardState extends State<DropCard> {
   Widget build(BuildContext context) {
     int spacerFlex = 3;
     return Card(
+      color: Theme.of(context).primaryColorDark,
       margin: _dropCardPadding,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -56,11 +57,8 @@ class _DropCardState extends State<DropCard> {
 }
 
 class BottomSheetHandle extends StatelessWidget {
-  final Color color;
-
   const BottomSheetHandle({
     Key key,
-    this.color,
   }) : super(key: key);
 
   @override
@@ -71,7 +69,7 @@ class BottomSheetHandle extends StatelessWidget {
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).accentColor,
           borderRadius: BorderRadius.circular(4),
         ),
       );
@@ -90,15 +88,12 @@ class CategoryIcon extends StatelessWidget {
       child: Center(
         child: Text(
           drop.category.name.substring(0, 1) ?? '?',
-          style: Theme.of(context)
-              .primaryTextTheme
-              .headline6
-              .copyWith(color: primaryText),
+          style: Theme.of(context).primaryTextTheme.headline6,
         ),
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).disabledColor),
-        color: Theme.of(context).buttonColor,
+        border: Border.all(color: Theme.of(context).accentColor),
+        color: Theme.of(context).primaryColorLight,
         shape: BoxShape.circle,
       ),
       height: MediaQuery.of(context).size.width * .25,
@@ -133,6 +128,8 @@ class _ViewDropCardState extends State<ViewDropCard> {
       child: Stack(
         children: <Widget>[
           Container(
+            decoration:
+                BoxDecoration(color: Theme.of(context).primaryColorDark),
             padding: dropCardInternalPadding,
             width: double.infinity,
             child: Column(
@@ -153,27 +150,17 @@ class _ViewDropCardState extends State<ViewDropCard> {
                               style: Theme.of(context)
                                   .primaryTextTheme
                                   /*.title*/
-                                  .headline6
-                                  .copyWith(
-                                    color: primaryText,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  .headline6,
                             ),
                           Text(
                             distanceService.display(),
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .bodyText1
-                                .copyWith(color: primaryText, fontSize: 16),
+                            style: Theme.of(context).primaryTextTheme.bodyText1,
                           ),
                           if (widget.drop != null)
                             Text(
                               widget.drop.location,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .bodyText1
-                                  .copyWith(color: primaryText, fontSize: 12),
+                              style:
+                                  Theme.of(context).primaryTextTheme.bodyText1,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -190,11 +177,14 @@ class _ViewDropCardState extends State<ViewDropCard> {
           ),
           Positioned(
             top: 0,
-            right: 0,
+            right: MediaQuery.of(context).size.width * 0.04,
             child: Column(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: IconTheme(
+                    data: Theme.of(context).iconTheme,
+                    child: Icon(Icons.clear),
+                  ),
                   onPressed: widget.onClose,
                 ),
                 // Likes(

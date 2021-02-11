@@ -4,7 +4,7 @@ import 'package:locator/auth/models/user.dart';
 import 'package:locator/general/widgets/primary_button.dart';
 import 'package:locator/general/widgets/user_avatar.dart';
 import 'package:locator/options/widgets/options_item.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/enums.dart' show SignInMode;
 import 'package:provider/provider.dart';
 
@@ -20,6 +20,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: StreamBuilder<UserModel>(
           stream: Provider.of<Auth>(context).userStream,
@@ -82,17 +83,22 @@ class LoggedOutLayout extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-//        Text('You are not logged in', style: Theme.of(context).textTheme.headline6),
         Text('You are not logged in',
-            style: Theme.of(context).textTheme.headline6),
+            style: Theme.of(context).textTheme.subtitle1),
         Container(height: 48),
         PrimaryButton(
           onPressed: login,
-          child: Text('Log in'),
+          child: Text(
+            'Log in',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         PrimaryButton(
           onPressed: signIn,
-          child: Text('Mail and Pass'),
+          child: Text(
+            'Mail and Pass',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
       ],
     );
@@ -129,7 +135,10 @@ class LoggedInLayout extends StatelessWidget {
           child: Column(
             children: <Widget>[
               OptionsItem(
-                child: Text('Logout'),
+                child: Text(
+                  'Logout',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
                 function: logout,
               ),
             ],
