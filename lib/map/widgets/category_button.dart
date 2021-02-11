@@ -68,6 +68,11 @@ class _CategoryButtonState extends State<CategoryButton> {
             borderRadius: widget.category.level == CategoryLevel.top
                 ? borderRadius15
                 : null,
+            border: Border.all(
+              color: widget.category.level == CategoryLevel.top
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).accentColor,
+            ),
             shape: widget.category.level == CategoryLevel.category
                 ? BoxShape.circle
                 : BoxShape.rectangle,

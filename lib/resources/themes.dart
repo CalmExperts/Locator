@@ -5,7 +5,7 @@ import 'colors.dart';
 
 ThemeData darkModeTheme = ThemeData(
   primaryColor: primaryColor,
-  accentColor: secondaryColor,
+  accentColor: brandColor,
   splashColor: splashColor,
   disabledColor: disabledColor,
   dividerColor: dividerColor,
