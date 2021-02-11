@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/auth/auth.dart';
@@ -40,9 +41,21 @@ class MapBackground extends StatefulWidget {
 
 class MapBackgroundState extends State<MapBackground> {
   LocationService locationService = GetIt.I.get<LocationService>();
+  CameraPosition cameraPosition;
 
-  void _getCameraPosition() async {
-    await locationService.getCameraPosition();
+  _getCameraPosition() async {
+    // return await locationService.getCameraPosition();
+    await Geolocator.getCurrentPosition().then((value) {
+      setState(() {
+        cameraPosition = CameraPosition(
+          target: LatLng(
+            value.latitude,
+            value.longitude,
+          ),
+          zoom: 15.0,
+        );
+      });
+    });
   }
 
   @override
@@ -103,11 +116,15 @@ class MapBackgroundState extends State<MapBackground> {
               // change to show all drops within a certain distance.
             }
             final data = snapshot.data ?? [];
-            final cameraPosition = locationService?.cameraPosition;
 
             if (cameraPosition == null) {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Container(
+                color: Theme.of(context).backgroundColor,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.green,
+                  ),
+                ),
               );
             }
 
