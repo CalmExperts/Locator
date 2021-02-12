@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:locator/auth/auth.dart';
-import 'package:locator/map/models/drop.dart';
-import 'package:locator/map/services/distance_service.dart';
-import 'package:locator/marks/widgets/likes.dart';
-import 'package:locator/resources/style/colors.dart';
-import 'package:locator/resources/dimensions.dart';
-import 'package:locator/utils/extensions.dart';
-import 'package:provider/provider.dart';
+
+import '../../resources/dimensions.dart';
+import '../../utils/extensions.dart';
+import '../models/drop.dart';
+import '../services/distance_service.dart';
 
 class DropCard extends StatefulWidget {
   final Widget child;
