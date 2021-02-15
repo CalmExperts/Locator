@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/map/bloc/map_bloc.dart';
 import 'package:locator/map/models/category.dart';
@@ -57,10 +60,64 @@ class _MapPageState extends State<MapPage> with SingleTickerProviderStateMixin {
   }
 }
 
-class SideBar extends StatelessWidget {
+class SideBar extends StatefulWidget {
   const SideBar({
     Key key,
   }) : super(key: key);
+
+  @override
+  _SideBarState createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  CameraPosition cameraPosition;
+  Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController mapController;
+  Set<Marker> _markers = new Set<Marker>();
+
+  getCameraPosition() async {
+    // return await locationService.getCameraPosition();
+    await Geolocator.getCurrentPosition().then((value) {
+      setState(() {
+        cameraPosition = CameraPosition(
+          target: LatLng(
+            value.latitude,
+            value.longitude,
+          ),
+          zoom: 15.0,
+        );
+      });
+
+      _updateMarker(value.latitude, value.longitude);
+
+      _goToTheMarker(value.latitude, value.longitude);
+    });
+  }
+
+  Future<void> _goToTheMarker(double targetLat, double targetLong) async {
+    final GoogleMapController controller = await _controller.future;
+    setState(() {
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(targetLat, targetLong), zoom: 20),
+        ),
+      );
+    });
+  }
+
+  void _updateMarker(double latitude, double longitude) {
+    setState(() {
+      _markers.clear();
+
+      final marker = Marker(
+        markerId: MarkerId("curr_loc"),
+        position: LatLng(latitude, longitude),
+        icon: BitmapDescriptor.defaultMarker,
+      );
+
+      _markers.add(marker);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +167,9 @@ class SideBar extends StatelessWidget {
           ),
           separator,
           FindMe(
-            onFindMe: (LatLng coordinates) {},
+            onFindMe: () {
+              getCameraPosition();
+            },
           ),
           separator,
           Options(),

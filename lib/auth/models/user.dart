@@ -5,13 +5,15 @@ import 'package:locator/db/db.dart';
 import 'package:locator/map/models/model.dart';
 
 class UserModel extends Model {
-  final String email;
-  final String name;
-  final String picUrl;
-  final String id;
+  String email;
+  String password;
+  String name;
+  String picUrl;
+  String id;
 
   UserModel({
     this.email,
+    this.password,
     this.name,
     this.picUrl,
     this.id,

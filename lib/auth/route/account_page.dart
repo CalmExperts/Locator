@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:locator/auth/auth.dart';
 import 'package:locator/auth/models/user.dart';
+import 'package:locator/auth/route/account_mail_pass_page.dart';
 import 'package:locator/general/widgets/primary_button.dart';
 import 'package:locator/general/widgets/user_avatar.dart';
 import 'package:locator/options/widgets/options_item.dart';
@@ -86,15 +87,30 @@ class LoggedOutLayout extends StatelessWidget {
         Text('You are not logged in',
             style: Theme.of(context).textTheme.subtitle1),
         Container(height: 48),
-        PrimaryButton(
-          onPressed: login,
-          child: Text(
-            'Log in',
+        OutlineButton.icon(
+          onPressed: () {},
+          icon: Image.asset('assets/images/google-logo.png',
+              height: 40, width: 40),
+          label: Text(
+            "Log in with Google",
             style: Theme.of(context).textTheme.headline6,
           ),
+          borderSide: BorderSide(
+            color: Theme.of(context).highlightColor.withOpacity(0.8),
+          ),
+          textColor: Theme.of(context).highlightColor.withOpacity(0.8),
+          highlightedBorderColor:
+              Theme.of(context).highlightColor.withOpacity(0.8),
         ),
         PrimaryButton(
-          onPressed: signIn,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => MailPassPage(),
+              ),
+            );
+          },
           child: Text(
             'Mail and Pass',
             style: Theme.of(context).textTheme.headline6,

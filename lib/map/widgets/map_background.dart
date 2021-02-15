@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:locator/auth/auth.dart';
-import 'package:locator/auth/route/account_page.dart';
-import 'package:locator/map/bloc/map_bloc.dart';
-import 'package:locator/map/models/coordinates.dart';
-import 'package:locator/map/models/drop.dart';
-import 'package:locator/map/services/drop_service.dart';
 import 'package:locator/map/services/location_service.dart';
-import 'package:locator/map/widgets/drop_card.dart';
-import 'package:locator/map/widgets/edit_card/bloc/card_bloc.dart';
-import 'package:locator/map/widgets/edit_card/create_card.dart';
-import 'package:locator/map/widgets/loading_failed.dart';
-import 'package:locator/resources/dimensions.dart';
-import 'package:locator/resources/enums.dart';
-import 'package:locator/utils/dialog.dart';
-import 'package:locator/utils/exceptions.dart';
-import 'package:locator/utils/functions.dart' show navigateTo;
 import 'package:provider/provider.dart';
+
+import '../../auth/auth.dart';
+import '../../auth/route/account_page.dart';
+import '../../resources/dimensions.dart';
+import '../../resources/enums.dart';
+import '../../utils/dialog.dart';
+import '../../utils/exceptions.dart';
+import '../../utils/functions.dart' show navigateTo;
+import '../bloc/map_bloc.dart';
+import '../models/coordinates.dart';
+import '../models/drop.dart';
+import '../services/drop_service.dart';
+import 'drop_card.dart';
+import 'edit_card/bloc/card_bloc.dart';
+import 'edit_card/create_card.dart';
+import 'loading_failed.dart';
 
 typedef ShowBottomSheet = PersistentBottomSheetController Function(
     {@required Widget content});
@@ -42,8 +42,9 @@ class MapBackground extends StatefulWidget {
 class MapBackgroundState extends State<MapBackground> {
   // LocationService locationService = GetIt.I.get<LocationService>();
   CameraPosition cameraPosition;
+  GoogleMapController mapController;
 
-  _getCameraPosition() async {
+  getCameraPosition() async {
     // return await locationService.getCameraPosition();
     await Geolocator.getCurrentPosition().then((value) {
       setState(() {
@@ -61,10 +62,8 @@ class MapBackgroundState extends State<MapBackground> {
   @override
   void initState() {
     super.initState();
-    _getCameraPosition();
+    getCameraPosition();
   }
-
-  GoogleMapController mapController;
 
   Drop tappedDrop;
   bool displayCard = false;

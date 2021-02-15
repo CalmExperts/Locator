@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/resources/dimensions.dart';
 
 class FindMe extends StatefulWidget {
-  final Function(LatLng coordinates) onFindMe;
+  final Function onFindMe;
 
   const FindMe({Key key, this.onFindMe}) : super(key: key);
 
@@ -17,7 +17,7 @@ class _FindMeState extends State<FindMe> {
     return Material(
       child: InkWell(
         onTap: () {
-//          widget.onFindMe();
+          widget.onFindMe();
         },
         child: Container(
           child: IconTheme(

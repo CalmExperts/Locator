@@ -24,9 +24,10 @@ class Auth {
 
   Future<GoogleSignInAccount> gLogin() async => _googleSignIn.signIn();
 
-  Future<User> signIn() async {
-    UserCredential userCredential = await _firebaseAuth
-        .signInWithEmailAndPassword(email: 'f@gmail.com', password: 'ffffffff');
+  Future<User> signIn(UserModel userModel) async {
+    UserCredential userCredential =
+        await _firebaseAuth.signInWithEmailAndPassword(
+            email: userModel.email, password: userModel.password);
 
     User user = userCredential.user;
 
@@ -39,7 +40,7 @@ class Auth {
     return user;
   }
 
-  Future<UserModel> login({SignInMode mode}) async {
+  Future<UserModel> login({SignInMode mode, UserModel model}) async {
     switch (mode) {
       case SignInMode.google:
         final GoogleSignInAccount googleSignInAccount = await gLogin();
@@ -58,7 +59,7 @@ class Auth {
         return userModel;
         break;
       case SignInMode.emailAndPassword:
-        User user = await signIn();
+        User user = await signIn(model);
         UserModel userModel = UserModel.currentUser(user);
         _userStream.add(userModel);
         register(userModel);
