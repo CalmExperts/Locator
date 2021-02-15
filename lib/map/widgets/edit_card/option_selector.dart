@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locator/general/widgets/platform_builder.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/dimensions.dart';
 
 enum OptionSelectorState { open, closed }

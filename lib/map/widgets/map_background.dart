@@ -40,7 +40,7 @@ class MapBackground extends StatefulWidget {
 }
 
 class MapBackgroundState extends State<MapBackground> {
-  LocationService locationService = GetIt.I.get<LocationService>();
+  // LocationService locationService = GetIt.I.get<LocationService>();
   CameraPosition cameraPosition;
 
   _getCameraPosition() async {
@@ -133,6 +133,10 @@ class MapBackgroundState extends State<MapBackground> {
               key: mapKey,
               compassEnabled: true,
               initialCameraPosition: cameraPosition,
+              // initialCameraPosition: CameraPosition(
+              //   target: LatLng(43.66487952342741, -79.3795446306467),
+              //   zoom: 16,
+              // ),
               markers: Set.from([
                 for (final drop in data)
                   if (drop.coordinates != null)

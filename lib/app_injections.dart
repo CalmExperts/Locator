@@ -10,6 +10,6 @@ class AppInjections {
   registerSingleton() {
     getIt.registerLazySingleton<CategoryService>(() => CategoryService());
     getIt.registerLazySingleton<MarkService>(() => MarkService());
-    getIt.registerLazySingleton<LocationService>(() => LocationService());
+    // getIt.registerLazySingleton<LocationService>(() => LocationService());
   }
 }

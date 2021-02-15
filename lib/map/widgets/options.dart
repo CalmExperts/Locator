@@ -36,10 +36,7 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
         child: Container(
           child: IconTheme(
             data: Theme.of(context).iconTheme,
-            child: Icon(
-              Icons.menu,
-              color: Theme.of(context).highlightColor,
-            ),
+            child: Icon(Icons.menu),
           ),
           height: sideBarSize,
           width: double.infinity,

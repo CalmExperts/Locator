@@ -19,7 +19,7 @@ import 'package:locator/map/widgets/edit_card/summary_card.dart';
 import 'package:locator/map/widgets/edit_card/tags_card.dart';
 import 'package:locator/map/widgets/flexible_container.dart';
 import 'package:locator/map/widgets/star.dart';
-import 'package:locator/resources/colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/dimensions.dart';
 import 'package:locator/resources/enums.dart';
 import 'package:locator/utils/exceptions.dart';
