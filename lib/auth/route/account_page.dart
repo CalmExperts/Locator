@@ -7,7 +7,10 @@ import 'package:locator/general/widgets/user_avatar.dart';
 import 'package:locator/options/widgets/options_item.dart';
 import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/enums.dart' show SignInMode;
+import 'package:locator/shared/widgets/dialog.dart';
 import 'package:provider/provider.dart';
+
+import '../auth_errors.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -17,6 +20,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   Auth auth;
   bool loading = false;
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class _AccountPageState extends State<AccountPage> {
               child: loading
                   ? CircularProgressIndicator()
                   : user == null
-                      ? LoggedOutLayout(login: login, signIn: signIn)
+                      ? LoggedOutLayout(login: login)
                       : LoggedInLayout(logout: logout, user: user),
             );
           },
@@ -46,28 +50,45 @@ class _AccountPageState extends State<AccountPage> {
     auth = Provider.of<Auth>(context);
   }
 
-  void login() {
+  login() async {
     setState(() {
       loading = true;
     });
-    auth.login(mode: SignInMode.google).then((_) {
-      print('');
-      setState(() {
-        loading = false;
-      });
-    });
-  }
 
-  void signIn() {
-    setState(() {
-      loading = true;
-    });
-    auth.login(mode: SignInMode.emailAndPassword).then((_) {
-      print('');
+    final status = await auth.login(mode: SignInMode.google);
+
+    if (status == AuthResultStatus.successful) {
       setState(() {
         loading = false;
+        // Navigator.pop(context);
       });
-    });
+    } else {
+      setState(() {
+        errorMessage = AuthExceptionHandler.generateExceptionMessage(
+          status,
+        );
+        CustomDialog customDialog = CustomDialog(
+          buttonText: "Get back",
+          title: "There was an error",
+          content: errorMessage,
+          context: context,
+          dismissible: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        );
+        customDialog.show();
+
+        loading = false;
+      });
+    }
+
+    // auth.login(mode: SignInMode.google).then((_) {
+    //   print('');
+    // setState(() {
+    //   loading = false;
+    // });
+    // });
   }
 
   void logout() => auth.logout().then((_) => setState(() {}));
@@ -75,9 +96,9 @@ class _AccountPageState extends State<AccountPage> {
 
 class LoggedOutLayout extends StatelessWidget {
   final Function login;
-  final Function signIn;
+  // final Function signIn;
 
-  const LoggedOutLayout({Key key, this.login, this.signIn}) : super(key: key);
+  const LoggedOutLayout({Key key, this.login}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +109,9 @@ class LoggedOutLayout extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1),
         Container(height: 48),
         OutlineButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            login();
+          },
           icon: Image.asset('assets/images/google-logo.png',
               height: 40, width: 40),
           label: Text(
@@ -135,7 +158,7 @@ class LoggedInLayout extends StatelessWidget {
           expandedHeight: 200,
           backgroundColor: Theme.of(context).primaryColor,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text(user.name),
+            title: Text(user.name == null ? "" : user.name),
             background: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

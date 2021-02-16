@@ -27,7 +27,8 @@ class UserModel extends Model {
     return <String, dynamic>{
       'email': email,
       'name': name,
-      'picUrl': picUrl,
+      'picUrl':
+          "https://media-exp1.licdn.com/dms/image/C4D0BAQHgjgLHxmJNSw/company-logo_200_200/0/1607739831527?e=2159024400&v=beta&t=DtZHXNhj0qEWteqDvH3GLxI6D5M483z8EGtEC7XWkyI",
       'id': id,
     };
   }

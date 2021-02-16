@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:locator/auth/models/user.dart';
 import 'package:locator/auth/route/account_page.dart';
+import 'package:locator/auth/route/account_registration.dart';
 import 'package:locator/general/widgets/primary_button.dart';
 import 'package:locator/resources/enums.dart';
+import 'package:locator/shared/widgets/dialog.dart';
 import 'package:locator/shared/widgets/inputs/email_input.dart';
 import 'package:locator/shared/widgets/inputs/password_input.dart';
 import 'package:provider/provider.dart';
 
 import '../auth.dart';
+import '../auth_errors.dart';
 
 class MailPassPage extends StatefulWidget {
   @override
@@ -18,28 +21,43 @@ class _MailPassPageState extends State<MailPassPage> {
   final formKey = GlobalKey<FormState>();
   Auth auth;
   bool loading = false;
+  String errorMessage = "";
 
   UserModel model = UserModel();
 
-  void signIn() {
+  signIn() async {
     setState(() {
       loading = true;
     });
-    auth.login(mode: SignInMode.emailAndPassword, model: model).then((_) {
+
+    final status =
+        await auth.login(mode: SignInMode.emailAndPassword, model: model);
+
+    if (status == AuthResultStatus.successful) {
       setState(() {
         loading = false;
-      });
-
-      if (auth.currentUser != null) {
-        print("NOT NULL");
         Navigator.pop(context);
-      } else {
-        print("ERROR");
-        setState(() {
-          loading = false;
-        });
-      }
-    });
+      });
+    } else {
+      setState(() {
+        errorMessage = AuthExceptionHandler.generateExceptionMessage(
+          status,
+        );
+        CustomDialog customDialog = CustomDialog(
+          buttonText: "Get back",
+          title: "There was an error",
+          content: errorMessage,
+          context: context,
+          dismissible: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        );
+        customDialog.show();
+
+        loading = false;
+      });
+    }
   }
 
   @override
@@ -81,17 +99,36 @@ class _MailPassPageState extends State<MailPassPage> {
                     Divider(
                       color: Colors.transparent,
                     ),
-                    PrimaryButton(
-                      onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
-                          signIn();
-                        }
-                      },
-                      child: Text(
-                        'Sign In',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        PrimaryButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => AccountRegistration(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Register',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                        PrimaryButton(
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              formKey.currentState.save();
+                              signIn();
+                            }
+                          },
+                          child: Text(
+                            'Sign In',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );
