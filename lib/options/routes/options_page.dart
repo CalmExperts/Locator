@@ -4,6 +4,8 @@ import 'package:locator/general/widgets/user_avatar.dart';
 import 'package:locator/options/widgets/options_item.dart';
 import 'package:locator/utils/functions.dart';
 
+import 'theme_page.dart';
+
 class OptionsPage extends StatefulWidget {
   @override
   _OptionsPageState createState() => _OptionsPageState();
@@ -33,6 +35,13 @@ class _OptionsPageState extends State<OptionsPage> {
                   ],
                 ),
                 function: () => navigateTo(context, AccountPage()),
+              ),
+              OptionsItem(
+                child: Text(
+                  'Change Theme',
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+                function: () => navigateTo(context, ThemePage()),
               ),
             ],
           ),

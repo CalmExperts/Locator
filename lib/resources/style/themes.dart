@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locator/resources/style/text_size.dart';
 
-import 'colors.dart';
+import 'dark_colors.dart';
+
+ThemeData lightModeTheme = ThemeData();
 
 ThemeData darkModeTheme = ThemeData(
   primaryColor: primaryColor,

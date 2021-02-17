@@ -165,7 +165,8 @@ class MapBackgroundState extends State<MapBackground> {
                 setState(() {
                   mapController = controller;
                 });
-                _activateMapDarkMode();
+                // _activateMapDarkMode();
+                _activateMapLightMode();
               },
               onLongPress: (LatLng position) async {
                 var currentUser =
@@ -209,6 +210,10 @@ class MapBackgroundState extends State<MapBackground> {
 
   _activateMapDarkMode() {
     getJsonForMapMode('assets/map_dark_mode.json').then(setMapStyle);
+  }
+
+  _activateMapLightMode() {
+    getJsonForMapMode('assets/map_light_mode.json').then(setMapStyle);
   }
 
   Future<String> getJsonForMapMode(String path) async {

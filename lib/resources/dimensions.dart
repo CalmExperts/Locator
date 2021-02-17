@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:locator/resources/style/colors.dart';
+import 'package:locator/resources/style/dark_colors.dart';
 
 const double padding = 16;
 const EdgeInsets dropCardInternalPadding = EdgeInsets.fromLTRB(15, 0, 15, 15);

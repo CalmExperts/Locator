@@ -5,7 +5,7 @@ import 'package:locator/auth/models/user.dart';
 import 'package:locator/map/models/drop.dart';
 import 'package:locator/marks/models/mark.dart';
 import 'package:locator/marks/services/like_service.dart';
-import 'package:locator/resources/style/colors.dart';
+import 'package:locator/resources/style/dark_colors.dart';
 import 'package:provider/provider.dart';
 
 class Likes extends StatelessWidget {

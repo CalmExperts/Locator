@@ -62,4 +62,5 @@ flutter:
 
   assets:
     - assets/map_dark_mode.json
+    - assets/map_light_mode.json
     - assets/images/

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator/resources/style/colors.dart';
+import 'package:locator/resources/style/dark_colors.dart';
 
 class Star extends StatelessWidget {
   final bool pressed;
