@@ -52,8 +52,8 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
           width: double.infinity,
         ),
       ),
-      // color: Theme.of(context).primaryColor,
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
+      // color: Colors.blue,
       elevation: elevation,
     );
   }

@@ -83,24 +83,23 @@ class LoggedOutLayout extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        // Text('You are not logged in',
-        //     style: Theme.of(context).textTheme.subtitle1,),
-        // Container(height: 48),
-        // PrimaryButton(
-        //   onPressed: login,
-        //   child: Text(
-        //     'Log in with google account',
-            
-            
-        //   ),
-        // ),
-        // PrimaryButton(
-        //   onPressed: signIn,
-        //   child: Text(
-        //     'Mail and Pass',
-        //     style: Theme.of(context).textTheme.headline6,
-        //   ),
-        // ),
+        Text('You are not logged in',
+            style: Theme.of(context).textTheme.subtitle1),
+        Container(height: 48),
+        PrimaryButton(
+          onPressed: login,
+          child: Text(
+            'Log in',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+        PrimaryButton(
+          onPressed: signIn,
+          child: Text(
+            'Mail and Pass',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
       ],
     );
   }
@@ -115,36 +114,49 @@ class LoggedInLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200,
           backgroundColor: Theme.of(context).primaryColor,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text(user.name),
-            background: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            background: Container(
+              child: Column(
+                
+                // crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UserAvatar(radius: 120),
+                  Container(
+                    child: Text(
+                      user.name,
+                      style: TextStyle(color: Colors.white, fontSize: 32),
+                    ),
+                  )
+                ],
+              ),
+
+              // Column(
+              //   padding: const EdgeInsets.only(bottom: 0),
+              //   child:
+              // ),
+            ),
+          ),
+        ),
+           SliverFillRemaining(
+            child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: UserAvatar(radius: 120),
+                OptionsItem(
+                  child: Text(
+                    '-LOGOUT-',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  function: logout,
                 ),
               ],
             ),
           ),
-        ),
-        SliverFillRemaining(
-          child: Column(
-            children: <Widget>[
-              OptionsItem(
-                child: Text(
-                  'Logout',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                function: logout,
-              ),
-            ],
-          ),
-        )
+
       ],
     );
   }

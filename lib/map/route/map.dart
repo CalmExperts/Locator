@@ -66,7 +66,7 @@ class SideBar extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget separator = Container(height: 12);
     return Container(
-      color: Colors.yellow,
+      // color: Colors.yellow,
       //-----------
 
       width: sideBarSize,
@@ -114,9 +114,9 @@ class SideBar extends StatelessWidget {
           separator,
           FindMe(
             onFindMe: (LatLng coordinates) {},
-          ),
+          ), //cordinates
           separator,
-          Options(),
+          Options(), //hamburguer menu
         ],
       ),
     );

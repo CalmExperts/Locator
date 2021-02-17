@@ -1,6 +1,4 @@
-// import 'package:buffetlocator/app/pages/shared/widgets/tag_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:locator/auth/route/account_page.dart';
 import 'package:locator/options/routes/options_page.dart';
 
 class TagsList extends StatelessWidget {
@@ -51,7 +49,7 @@ class TagsList extends StatelessWidget {
                       ),
                       Text(
                         // tag,
-                        'ACCOUNT',
+                        'OPTIONS',
                         style: TextStyle(
                             color: Theme.of(context).dividerColor,
                             fontSize: 12,
@@ -60,11 +58,11 @@ class TagsList extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                    print('ACCOUNT!');
+                    print('OPTIONS!');
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AccountPage(),
+                        builder: (context) => OptionsPage(),
                       ),
                     );
                   },

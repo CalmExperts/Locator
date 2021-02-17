@@ -62,12 +62,13 @@ class BottomSheetHandle extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
-        margin: EdgeInsets.only(top: 15),
+        margin: EdgeInsets.only(top: 10),
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
           // color: Theme.of(context).accentColor,
-          color: Colors.green,
+                      color: Colors.white,
+          // color: Colors.green,
           borderRadius: BorderRadius.circular(4),
         ),
       );
