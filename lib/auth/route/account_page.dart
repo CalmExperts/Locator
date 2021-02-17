@@ -83,23 +83,24 @@ class LoggedOutLayout extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text('You are not logged in',
-            style: Theme.of(context).textTheme.subtitle1),
-        Container(height: 48),
-        PrimaryButton(
-          onPressed: login,
-          child: Text(
-            'Log in',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ),
-        PrimaryButton(
-          onPressed: signIn,
-          child: Text(
-            'Mail and Pass',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ),
+        // Text('You are not logged in',
+        //     style: Theme.of(context).textTheme.subtitle1,),
+        // Container(height: 48),
+        // PrimaryButton(
+        //   onPressed: login,
+        //   child: Text(
+        //     'Log in with google account',
+            
+            
+        //   ),
+        // ),
+        // PrimaryButton(
+        //   onPressed: signIn,
+        //   child: Text(
+        //     'Mail and Pass',
+        //     style: Theme.of(context).textTheme.headline6,
+        //   ),
+        // ),
       ],
     );
   }

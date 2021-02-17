@@ -66,7 +66,8 @@ class BottomSheetHandle extends StatelessWidget {
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
+          // color: Theme.of(context).accentColor,
+          color: Colors.green,
           borderRadius: BorderRadius.circular(4),
         ),
       );
