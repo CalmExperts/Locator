@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locator/map/widgets/test_sweep.dart';
 import 'package:locator/options/routes/options_page.dart';
 
 class TagsList extends StatelessWidget {
@@ -19,8 +20,7 @@ class TagsList extends StatelessWidget {
         physics: BouncingScrollPhysics(),
 
         children: [
-
- Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child:
                 //  TagChip(
@@ -70,7 +70,6 @@ class TagsList extends StatelessWidget {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child:
@@ -110,6 +109,12 @@ class TagsList extends StatelessWidget {
                   ),
                   onPressed: () {
                     print('UPDATE!');
+                    //                Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => TestSweep(),
+                    //   ),
+                    // );
                   },
                 ),
                 // Container(
@@ -305,7 +310,6 @@ class TagsList extends StatelessWidget {
               ],
             ),
           ),
-         
         ],
 
         // children: tags
