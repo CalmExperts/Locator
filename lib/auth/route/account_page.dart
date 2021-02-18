@@ -5,7 +5,7 @@ import 'package:locator/auth/route/account_mail_pass_page.dart';
 import 'package:locator/general/widgets/primary_button.dart';
 import 'package:locator/general/widgets/user_avatar.dart';
 import 'package:locator/options/widgets/options_item.dart';
-import 'package:locator/resources/style/dark_colors.dart';
+import 'package:locator/resources/style/colors.dart';
 import 'package:locator/resources/enums.dart' show SignInMode;
 import 'package:locator/shared/widgets/dialog.dart';
 import 'package:provider/provider.dart';

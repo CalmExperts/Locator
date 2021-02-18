@@ -12,6 +12,7 @@ import 'package:locator/map/widgets/find_me.dart';
 import 'package:locator/map/widgets/map_background.dart';
 import 'package:locator/map/widgets/options.dart';
 import 'package:locator/resources/dimensions.dart';
+import 'package:locator/resources/theme_changer.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -168,7 +169,8 @@ class _SideBarState extends State<SideBar> {
           separator,
           FindMe(
             onFindMe: () {
-              getCameraPosition();
+              // getCameraPosition();
+              // ThemeBuilder.of(context).changeTheme();
             },
           ),
           separator,
