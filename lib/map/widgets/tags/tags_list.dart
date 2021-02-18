@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:locator/map/widgets/tags/tag_item.dart';
+import 'package:locator/map/widgets/tags/tag_card.dart';
 import 'package:locator/options/routes/options_page.dart';
 
 class TagsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: ListView(
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
         children: [
-          TagItem(
-            text: "OPTIONS",
+          TagCard(
+            text: 'OPTIONS',
             icon: Icons.warning,
             onPressed: () {
+              print('OPTIONS!');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -23,53 +24,62 @@ class TagsList extends StatelessWidget {
               );
             },
           ),
-          TagItem(
-            text: "UPDATE",
+          TagCard(
+            text: 'UPDATE',
             icon: Icons.warning,
-            onPressed: () {},
+            onPressed: () {
+              print('UPDATE!');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OptionsPage(),
+                ),
+              );
+            },
           ),
-          TagItem(
-            text: "CONTRIBUTE",
+          TagCard(
+            text: 'CONTRIBUTE',
             icon: Icons.warning,
-            onPressed: () {},
+            onPressed: () {
+              print('CONTRIBUTE!');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OptionsPage(),
+                ),
+              );
+            },
           ),
-          TagItem(
-            text: "CAN\'T FIND SOMETHING?",
+          TagCard(
+            text: 'CAN\'T FIND SOMETHING?',
             icon: Icons.warning,
-            onPressed: () {},
+            onPressed: () {
+              print('CANT\' FIND SOMETHING!');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OptionsPage(),
+                ),
+              );
+            },
           ),
-          TagItem(
-            text: "DONATE",
+
+          TagCard(
+            text: 'DONATE',
             icon: Icons.warning,
-            onPressed: () {},
+            onPressed: () {
+              print('DONATE');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OptionsPage(),
+                ),
+              );
+            },
           ),
+          // ),
         ],
       ),
     );
   }
-
-  // bool enableNext(OptionState state) {
-  //   final currentPage = state.activeEditDropCardPage;
-  //   final drop = state.drop;
-  //   switch (currentPage) {
-  //     case EditDropCardPage.category:
-  //       return drop.category != null;
-  //     case EditDropCardPage.location:
-  //       return locationController.text.isNotEmpty;
-  //       break;
-  //     case EditDropCardPage.condition:
-  //       return drop.condition != null;
-  //       break;
-  //     case EditDropCardPage.comment:
-  //       return true;
-  //       break;
-  //     case EditDropCardPage.summary:
-  //     case EditDropCardPage.tags:
-  //       return true;
-  //       break;
-  //     default:
-  //       throw InvalidDataException('$currentPage is not a valid page');
-  //   }
-  // }
-
 }

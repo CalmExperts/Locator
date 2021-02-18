@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TagItem extends StatelessWidget {
+class TagCard extends StatelessWidget {
   final String text;
-  final IconData icon;
   final Function onPressed;
+  final IconData icon;
 
-  const TagItem({Key key, this.text, this.icon, this.onPressed})
+  const TagCard({Key key, this.text, this.onPressed, this.icon})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 26.0),
       child: FlatButton(
         height: 45,
         shape: RoundedRectangleBorder(
@@ -21,7 +21,7 @@ class TagItem extends StatelessWidget {
             width: 1,
           ),
         ),
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Row(
           children: [
             Icon(

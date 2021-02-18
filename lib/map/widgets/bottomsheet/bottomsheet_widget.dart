@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator/map/widgets/tags_list.dart';
+import 'package:locator/map/widgets/tags/tags_list.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({Key key}) : super(key: key);

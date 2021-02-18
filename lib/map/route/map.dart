@@ -171,8 +171,10 @@ class _SideBarState extends State<SideBar> {
           ),
           separator,
           FindMe(
-            onFindMe: (LatLng coordinates) {},
-          ), //cordinates
+            onFindMe: () {
+              getCameraPosition();
+            },
+          ),
           separator,
           Options(), //hamburguer menu
         ],
