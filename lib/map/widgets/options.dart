@@ -11,7 +11,9 @@ class Options extends StatefulWidget {
 
 class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  // (if pushed, this commit will... (explicação) )
 
+  // git c "tag list and tag card" -m "- the card is blue" -m "- the other card is yellw"
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
