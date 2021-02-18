@@ -158,15 +158,25 @@ class LoggedInLayout extends StatelessWidget {
           expandedHeight: 200,
           backgroundColor: Theme.of(context).primaryColor,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text(user.name == null ? "" : user.name),
-            background: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 48),
-                  child: UserAvatar(radius: 120),
-                ),
-              ],
+            background: Container(
+              child: Column(
+                // crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UserAvatar(radius: 120),
+                  Container(
+                    child: Text(
+                      user.name,
+                      style: TextStyle(color: Colors.white, fontSize: 32),
+                    ),
+                  )
+                ],
+              ),
+
+              // Column(
+              //   padding: const EdgeInsets.only(bottom: 0),
+              //   child:
+              // ),
             ),
           ),
         ),
@@ -175,14 +185,14 @@ class LoggedInLayout extends StatelessWidget {
             children: <Widget>[
               OptionsItem(
                 child: Text(
-                  'Logout',
+                  '-LOGOUT-',
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 function: logout,
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
