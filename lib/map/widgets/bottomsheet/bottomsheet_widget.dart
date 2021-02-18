@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locator/map/widgets/tags/tags_list.dart';
+import 'package:locator/map/widgets/tags_list.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({Key key}) : super(key: key);
@@ -62,9 +62,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     ),
                   ],
                 ),
+
                 Flexible(
-                  child: TagsList(),
-                ),
+                    // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
+                    child: TagsList()),
                 // widget.child,
               ],
             ),
@@ -111,16 +112,15 @@ class _SheetButtonState extends State<SheetButton> {
         ? MaterialButton(
             color: Colors.grey[800],
             onPressed: () async {
-              setState(() {
-                checkingFlight = true;
-              });
-
+              setState(
+                () {
+                  checkingFlight = true;
+                },
+              );
               await Future.delayed(Duration(seconds: 1));
-
               setState(() {
                 success = true;
               });
-
               await Future.delayed(Duration(milliseconds: 500));
 
               Navigator.pop(context);

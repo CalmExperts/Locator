@@ -9,16 +9,23 @@ class OptionsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       child: Column(
         children: <Widget>[
+          
           Material(
+            
             child: InkWell(
+              
               onTap: function,
               child: Container(
+                
                 color: Theme.of(context).backgroundColor,
                 width: double.infinity,
+                alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
+                  
                   child: child,
                 ),
               ),
