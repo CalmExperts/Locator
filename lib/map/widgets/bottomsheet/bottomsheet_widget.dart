@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:locator/map/widgets/tags_list.dart';
 
 class BottomSheetWidget extends StatefulWidget {
-  
   const BottomSheetWidget({Key key}) : super(key: key);
 
   @override
@@ -10,10 +9,8 @@ class BottomSheetWidget extends StatefulWidget {
 }
 
 class BottomSheetHandle extends StatelessWidget {
-  
   const BottomSheetHandle({
     Key key,
-    
   }) : super(key: key);
 
   @override
@@ -33,49 +30,80 @@ class BottomSheetHandle extends StatelessWidget {
 }
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
-    int spacerFlex = 3;
+  int spacerFlex = 3;
+  double bottomSheetHeight = 125;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const       EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      height: 160,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Container(
-            height: 125,
-      width: MediaQuery.of(context).size.width ,
-            decoration: BoxDecoration(
-      color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(15),
-                ),
-            child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Spacer(flex: spacerFlex),
-              Expanded(child: BottomSheetHandle()),
-              Spacer(
-                flex: spacerFlex,
-              ),
-            ],
-          ),
-
-         Flexible(
-              // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
-              child: TagsList()),
-          // widget.child,
-        ],
+    return AnimatedContainer(
+      // color: Colors.black,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(15),
       ),
-          )
-        ],
+
+      alignment: Alignment.topCenter,
+      duration: Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      height: bottomSheetHeight,
+      child: GestureDetector(
+        onVerticalDragUpdate: onVerticalDragUpdate,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Container(
+              height: 125,
+              // width: MediaQuery.of(context).size.width,
+              // decoration: BoxDecoration(
+              //   // color: Theme.of(context).primaryColor,
+              //   // color: Colors.red,
+              //   color: Colors.transparent,
+              //   borderRadius: BorderRadius.circular(15),
+              // ),
+
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Spacer(flex: spacerFlex),
+                      Expanded(child: BottomSheetHandle()),
+                      Spacer(
+                        flex: spacerFlex,
+                      ),
+                    ],
+                  ),
+
+                  Flexible(
+                      // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
+                      child: TagsList()),
+                  // widget.child,
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  onVerticalDragUpdate(DragUpdateDetails details) {
+    print(bottomSheetHeight);
+    print(details.delta.dy);
+
+    if (details.delta.dy > 1) {
+      bottomSheetHeight = 125;
+    } else if (details.delta.dy < 1) {
+      bottomSheetHeight = 400;
+    }
+
+    // if (details.delta.dy < -2.5) {
+    //   bottomSheetHeight = 400;
+    // }
+    setState(() {});
   }
 }
 
@@ -116,13 +144,13 @@ class _SheetButtonState extends State<SheetButton> {
             color: Colors.grey[800],
             onPressed: () async {
               setState(() {
-               checkingFlight = true; 
+                checkingFlight = true;
               });
 
-              await Future.delayed(Duration(seconds:1));
+              await Future.delayed(Duration(seconds: 1));
 
               setState(() {
-               success = true; 
+                success = true;
               });
 
               await Future.delayed(Duration(milliseconds: 500));

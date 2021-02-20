@@ -31,6 +31,8 @@ dependencies:
   conditional_wrapper: ^1.0.1
   cupertino_icons: ^1.0.0
 
+  bloc_pattern: ^2.3.2
+
   equatable: ^1.2.6
   firebase_auth: ^0.20.0+1
   firebase_core: ^0.7.0
