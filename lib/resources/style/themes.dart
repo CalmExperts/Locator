@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locator/resources/style/text_size.dart';
 
-import 'dark_colors.dart';
+import 'colors.dart';
 
 ThemeData lightModeTheme = ThemeData();
 
-ThemeData darkModeTheme = ThemeData(
+ThemeData defaultTheme = ThemeData(
   primaryColor: primaryColor,
   primaryColorLight: primaryColorLight,
   primaryColorDark: primaryColorDark,
@@ -17,8 +17,9 @@ ThemeData darkModeTheme = ThemeData(
   errorColor: errorColor,
   highlightColor: baseLightColor,
   backgroundColor: backgroundColor,
+  brightness: Brightness.dark,
 
-  ///Sub Themes
+  // Sub Themes
   buttonTheme: _buttonThemeData,
   textTheme: _textTheme,
   iconTheme: _iconThemeData,

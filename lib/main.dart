@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:locator/app_injections.dart';
+import 'package:locator/resources/theme_changer.dart';
 import 'auth/auth.dart';
 import 'general/bloc_globals.dart';
 import 'map/bloc/map_bloc.dart';
@@ -12,7 +13,7 @@ import 'map/services/drop_service.dart';
 import 'map/widgets/edit_card/animated_list_info.dart';
 import 'map/widgets/edit_card/bloc/card_bloc.dart';
 import 'marks/services/like_service.dart';
-import 'resources/style/dark_colors.dart' show locatorTheme;
+import 'resources/style/colors.dart' show locatorTheme;
 import 'resources/style/themes.dart';
 import 'utils/firestore_utils.dart';
 import 'visual_widget_tests/create_card_tests.dart';
@@ -49,7 +50,12 @@ class _LocatorState extends State<Locator> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Provider<Auth>(
       create: (context) => Auth()..getCurrentUser(),
+      // child: ThemeBuilder(
+      //   defaultBrightness: Brightness.dark,
+      //   builder: (context, _brightness) {
+      //     return MaterialApp(
       child: MaterialApp(
+        theme: defaultTheme,
         localizationsDelegates: [
           LocsDelegate(),
           GlobalMaterialLocalizations.delegate,
@@ -61,7 +67,7 @@ class _LocatorState extends State<Locator> {
         ],
         onGenerateTitle: (BuildContext context) => Locs.of(context).appName,
         debugShowCheckedModeBanner: false,
-        theme: darkModeTheme,
+        // theme: darkModeTheme,
         home: MultiProvider(
           providers: [
             ProxyProvider<Auth, DropService>(
@@ -163,6 +169,9 @@ class _LocatorState extends State<Locator> {
         ),
       ),
     );
+    //     },
+    //   ),
+    // );
   }
 }
 

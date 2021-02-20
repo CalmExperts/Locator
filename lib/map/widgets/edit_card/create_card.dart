@@ -19,7 +19,6 @@ import 'package:locator/map/widgets/edit_card/summary_card.dart';
 import 'package:locator/map/widgets/edit_card/tags_card.dart';
 import 'package:locator/map/widgets/flexible_container.dart';
 import 'package:locator/map/widgets/star.dart';
-import 'package:locator/resources/style/dark_colors.dart';
 import 'package:locator/resources/dimensions.dart';
 import 'package:locator/resources/enums.dart';
 import 'package:locator/utils/exceptions.dart';
@@ -28,8 +27,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sprung/sprung.dart';
 
 part 'category_card.dart';
-part 'condition_card.dart';
 part 'comment_card.dart';
+part 'condition_card.dart';
 part 'location_card.dart';
 
 class CreateDropCard extends StatefulWidget {

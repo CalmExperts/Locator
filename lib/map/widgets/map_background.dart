@@ -166,7 +166,7 @@ class MapBackgroundState extends State<MapBackground> {
                   mapController = controller;
                 });
                 // _activateMapDarkMode();
-                _activateMapLightMode();
+                _activateMapDarkMode();
               },
               onLongPress: (LatLng position) async {
                 var currentUser =

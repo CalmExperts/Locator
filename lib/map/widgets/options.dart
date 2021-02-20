@@ -11,7 +11,9 @@ class Options extends StatefulWidget {
 
 class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  // (if pushed, this commit will... (explicação) )
 
+  // git c "tag list and tag card" -m "- the card is blue" -m "- the other card is yellw"
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
@@ -28,7 +30,6 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: borderRadius15,
-
       child: InkWell(
         onTap: () {
           var sheetController = showBottomSheet(
@@ -36,13 +37,6 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
               context: context,
               builder: (context) => BottomSheetWidget());
         },
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => OptionsPage(),
-        //   ),
-        // ),
-
         child: Container(
           child: IconTheme(
             data: Theme.of(context).iconTheme,

@@ -14,3 +14,5 @@ const Color splashColor = Color(0xFF212121);
 
 const Color primaryTextColor = Color(0xFFFAFAFA);
 const Color secondaryTextColor = Color(0xFFF1C232);
+
+// const Color primaryColor = Color(0xFFF1C232);

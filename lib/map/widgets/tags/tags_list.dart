@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:locator/map/widgets/tag_card.dart';
+import 'package:locator/map/widgets/tags/tag_card.dart';
 import 'package:locator/options/routes/options_page.dart';
 
 class TagsList extends StatelessWidget {
-  const TagsList();
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-      // width: 900,
-      // color: Colors.red,
-      // alignment: Alignment.center,
       child: ListView(
-        // direction: Axis.horizontal,
-        // crossAxisAlignment: WrapCrossAlignment.start,
-
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
-
         children: [
           TagCard(
             text: 'OPTIONS',
@@ -34,7 +25,7 @@ class TagsList extends StatelessWidget {
             },
           ),
           TagCard(
-            text: 'UPDATE NAV',
+            text: 'UPDATE',
             icon: Icons.warning,
             onPressed: () {
               print('UPDATE!');
@@ -60,7 +51,7 @@ class TagsList extends StatelessWidget {
             },
           ),
           TagCard(
-            text: 'CANT\' FIND SOMETHING',
+            text: 'CAN\'T FIND SOMETHING?',
             icon: Icons.warning,
             onPressed: () {
               print('CANT\' FIND SOMETHING!');
@@ -88,14 +79,6 @@ class TagsList extends StatelessWidget {
           ),
           // ),
         ],
-
-        // children: tags
-        //     .map(
-        //       (tag) =>
-
-        //           ),
-        //     )
-        //     .toList(),
       ),
     );
   }
