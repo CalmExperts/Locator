@@ -121,7 +121,7 @@ class MapBackgroundState extends State<MapBackground> {
                 color: Theme.of(context).backgroundColor,
                 child: Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Theme.of(context).indicatorColor,
                   ),
                 ),
               );

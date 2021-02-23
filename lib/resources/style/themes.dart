@@ -18,7 +18,7 @@ ThemeData defaultTheme = ThemeData(
   highlightColor: baseLightColor,
   backgroundColor: backgroundColor,
   brightness: Brightness.dark,
-
+  indicatorColor: passedColor,
   // Sub Themes
   buttonTheme: _buttonThemeData,
   textTheme: _textTheme,

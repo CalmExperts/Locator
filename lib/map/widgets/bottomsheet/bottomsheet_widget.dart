@@ -188,7 +188,7 @@ class _SheetButtonState extends State<SheetButton> {
             ? CircularProgressIndicator()
             : Icon(
                 Icons.check,
-                color: Colors.green,
+                color: Theme.of(context).indicatorColor,
               );
   }
 }

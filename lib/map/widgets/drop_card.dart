@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:locator/main.dart';
+import 'package:locator/map/widgets/tags/mark_card.dart';
+import 'package:locator/map/widgets/tags/small_mark_card.dart';
+import 'package:locator/map/widgets/tags/tag_card.dart';
+import 'package:locator/marks/widgets/likes.dart';
+import 'package:locator/options/routes/options_page.dart';
 
 import '../../resources/dimensions.dart';
 import '../../utils/extensions.dart';
@@ -66,9 +72,7 @@ class BottomSheetHandle extends StatelessWidget {
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
-          // color: Theme.of(context).accentColor,
-                      color: Colors.white,
-          // color: Colors.green,
+          color: Theme.of(context).dividerColor,
           borderRadius: BorderRadius.circular(4),
         ),
       );
@@ -85,17 +89,16 @@ class CategoryIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text(
-          drop.category.name.substring(0, 1) ?? '?',
-          style: Theme.of(context).primaryTextTheme.headline6,
+        child: Icon(
+          Icons.store_outlined,
+          size: 56,
         ),
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).accentColor),
-        color: Theme.of(context).primaryColorLight,
+        border: Border.all(color: Theme.of(context).dividerColor),
         shape: BoxShape.circle,
       ),
-      height: MediaQuery.of(context).size.width * .25,
+      height: MediaQuery.of(context).size.width * 0.3,
       width: MediaQuery.of(context).size.width * .25,
     );
   }
@@ -126,6 +129,7 @@ class _ViewDropCardState extends State<ViewDropCard> {
     return DropCard(
       child: Stack(
         children: <Widget>[
+          //TODA TELA
           Container(
             decoration:
                 BoxDecoration(color: Theme.of(context).primaryColorDark),
@@ -166,35 +170,194 @@ class _ViewDropCardState extends State<ViewDropCard> {
                         ],
                       ),
                     ),
-                    Container(width: MediaQuery.of(context).size.width * .1)
+                    Container(width: MediaQuery.of(context).size.width * .2)
                   ],
                 ),
                 SingleChildScrollView(),
                 SingleChildScrollView(),
+                Container(
+                  height: 100,
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      MarkCard(
+                        text: 'OUTDOOR',
+                        // icon: Icons.sensor_door,
+                        onPressed: () {
+                          print('OUTDOOR!');
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OptionsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      MarkCard(
+                        text: 'INDOOR',
+                        // icon: Icons.sensor_door,
+                        onPressed: () {
+                          print('INDOOR!');
+                        },
+                      ),
+                      MarkCard(
+                        text: 'INDOOR',
+                        // icon: Icons.sensor_door_outlined,
+                        onPressed: () {
+                          print('INDOOR!');
+                        },
+                      ),
+                      MarkCard(
+                        text: 'OUTDOOR',
+                        // icon: Icons.sensor_door_outlined,
+                        onPressed: () {
+                          print('OUTDOOR!');
+                        },
+                      ),
+                      MarkCard(
+                        text: 'OUTDOOR',
+                        // icon: Icons.sensor_door_outlined,
+                        onPressed: () {
+                          print('OUTDOOR!');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 65,
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      SmallMarkCard(
+                        text: 'EDIT',
+                        icon: Icons.edit_outlined,
+                        onPressed: () {
+                          print('EDIT!');
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OptionsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'MAP',
+                        icon: Icons.map,
+                        onPressed: () {
+                          print('MAP!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'TEXT',
+                        icon: Icons.text_format_sharp,
+                        onPressed: () {
+                          print('TEXT!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'MESSAGE',
+                        icon: Icons.message_outlined,
+                        onPressed: () {
+                          print('MESSAGE!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'CLOCK',
+                        icon: Icons.access_time_rounded,
+                        onPressed: () {
+                          print('CLOCK!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'STAR',
+                        icon: Icons.star_border,
+                        onPressed: () {
+                          print('STAR!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'PIN',
+                        icon: Icons.pin_drop_outlined,
+                        onPressed: () {
+                          print('PIN!');
+                        },
+                      ),
+                      SmallMarkCard(
+                        text: 'REWARD',
+                        icon: Icons.card_giftcard_outlined,
+                        onPressed: () {
+                          print('REWARD!');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-          Positioned(
-            top: 0,
-            right: MediaQuery.of(context).size.width * 0.04,
+          Container(
+            padding: const EdgeInsets.only(right: 12.0),
+            height: 100,
+            width: MediaQuery.of(context).size.width,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                IconButton(
-                  icon: IconTheme(
-                    data: Theme.of(context).iconTheme,
-                    child: Icon(Icons.clear),
+                Container(
+                  width: 65,
+                  child: Column(
+                    children: [
+                      FlatButton(
+                        height: 28,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          side: BorderSide(
+                            color: Theme.of(context).indicatorColor,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'OPEN',
+                              style: TextStyle(
+                                color: Theme.of(context).indicatorColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // onPressed: () {
+                        //   print('OPEN NOW');
+                        // },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('3'),
+                          Container(width: 8),
+                          Icon(Icons.sentiment_satisfied)
+                        ],
+                      )
+                    ],
                   ),
-                  onPressed: widget.onClose,
                 ),
-                // Likes(
-                //   drop: widget.drop,
-                //   user: Provider.of<Auth>(context).currentUser,
-                // ),
               ],
             ),
-          )
+          ),
         ],
       ),
+
 //      onClose: widget.onClose,
     );
   }
