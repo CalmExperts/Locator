@@ -54,6 +54,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
               child: GestureDetector(
                 onVerticalDragUpdate: onVerticalDragUpdate,
                 child: ListView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     Container(
                       child: Column(
@@ -76,6 +77,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
                                 ? 80 //CERTO!!!!!!!!!!!!!!
                                 : 280,
                             child: ListView(
+                              physics: NeverScrollableScrollPhysics(),
                               children: <Widget>[
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
