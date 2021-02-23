@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:locator/controllers/contribute_controller.dart';
 
 class ContributePage extends StatefulWidget {
@@ -8,13 +9,14 @@ class ContributePage extends StatefulWidget {
 }
 
 class _ContributePageState extends State<ContributePage> {
-  final controller = ContributeController();
-  bool contributeValue = false;
+  final controller = GetIt.I.get<ContributeController>();
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
+        bool contributeMode = controller.contributeMode;
+        print(contributeMode);
         return controller.pageIndex == 1
             ? Column(
                 children: [
@@ -32,13 +34,15 @@ class _ContributePageState extends State<ContributePage> {
                     child: Column(
                       children: [
                         Switch(
-                          value: controller.contributeMode,
+                          value: contributeMode,
                           onChanged: (value) {
-                            controller.contributeMode = value;
+                            controller.changeToContributeMode(value);
                           },
                         ),
                         Text(
-                          "CONTRIBUTE",
+                          contributeMode == false
+                              ? "CONTRIBUTE"
+                              : "CONTRIBUTING",
                         ),
                       ],
                     ),

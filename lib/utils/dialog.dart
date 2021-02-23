@@ -36,6 +36,7 @@ void showAlertDialog(BuildContext context, String title,
           buttons.add(action);
         }
         return AlertDialog(
+          backgroundColor: Colors.black,
           title: Text(title, style: Theme.of(context).textTheme.headline6),
           actions: buttons,
         );

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locator/controllers/contribute_controller.dart';
 import 'package:locator/map/services/location_service.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +46,7 @@ class MapBackgroundState extends State<MapBackground> {
   // LocationService locationService = GetIt.I.get<LocationService>();
   CameraPosition cameraPosition;
   GoogleMapController mapController;
+  final contributeController = GetIt.I.get<ContributeController>();
 
   getCameraPosition() async {
     // return await locationService.getCameraPosition();
@@ -99,111 +103,129 @@ class MapBackgroundState extends State<MapBackground> {
       builder: (BuildContext context,
           MapState latestStateThatHasANewCategorySelection) {
         return StreamBuilder<List<Drop>>(
-          key: GlobalKey(),
-          stream: Provider.of<DropService>(context)
-              .fetch(latestStateThatHasANewCategorySelection.activeCategory),
-          builder: (context, snapshot) {
-            if (mapBloc.state is MapInitial) {
-              return LoadingWidget(
-                errorMessage: 'Please check your internet connection',
-                errorIcon: Icon(
-                  Icons.signal_cellular_connected_no_internet_4_bar,
-                  size: 70,
-                ),
-              );
-              // shows because drop service returns null while category is null.
-              // change to show all drops within a certain distance.
-            }
-            final data = snapshot.data ?? [];
-
-            if (cameraPosition == null) {
-              return Container(
-                color: Theme.of(context).backgroundColor,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.green,
+            key: GlobalKey(),
+            stream: Provider.of<DropService>(context)
+                .fetch(latestStateThatHasANewCategorySelection.activeCategory),
+            builder: (context, snapshot) {
+              if (mapBloc.state is MapInitial) {
+                return LoadingWidget(
+                  errorMessage: 'Please check your internet connection',
+                  errorIcon: Icon(
+                    Icons.signal_cellular_connected_no_internet_4_bar,
+                    size: 70,
                   ),
-                ),
-              );
-            }
+                );
+                // shows because drop service returns null while category is null.
+                // change to show all drops within a certain distance.
+              }
+              final data = snapshot.data ?? [];
 
-            return GoogleMap(
-              zoomControlsEnabled: false,
-              key: mapKey,
-              compassEnabled: true,
-              initialCameraPosition: cameraPosition,
-              // initialCameraPosition: CameraPosition(
-              //   target: LatLng(43.66487952342741, -79.3795446306467),
-              //   zoom: 16,
-              // ),
-              markers: Set.from([
-                for (final drop in data)
-                  if (drop.coordinates != null)
-                    Marker(
-                      markerId: MarkerId(drop.id),
-                      alpha: drop.isDraft ? 0.5 : 1.0,
-                      onTap: () {
-                        debugPrint(drop.toString());
-                        if (drop.isDraft) {
-                          cardBloc
-                            ..reset()
-                            ..add(SetDrop(drop));
-                          _showEditDropCard();
-                        } else {
-                          tappedDrop = drop;
-                          _showViewDropCard();
-                        }
-                      },
-                      position: LatLng(
-                        drop.coordinates.latitude,
-                        drop.coordinates.longitude,
-                      ),
+              if (cameraPosition == null) {
+                return Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.green,
                     ),
-              ]),
-              myLocationButtonEnabled: false,
-              onMapCreated: (GoogleMapController controller) {
-                setState(() {
-                  mapController = controller;
-                });
-                // _activateMapDarkMode();
-                _activateMapDarkMode();
-              },
-              onLongPress: (LatLng position) async {
-                var currentUser =
-                    Provider.of<Auth>(context, listen: false).currentUser;
-                if (currentUser == null) {
-                  showAlertDialog(context, 'You are not logged in', [
-                    'Whatever!',
-                    'Login'
-                  ], [
-                    () => Navigator.pop(context),
-                    () {
-                      Navigator.pop(context);
-                      navigateTo(context, AccountPage());
+                  ),
+                );
+              }
+
+              return Observer(
+                builder: (_) {
+                  bool isContributing = contributeController.contributeMode;
+                  return GoogleMap(
+                    zoomControlsEnabled: false,
+                    key: mapKey,
+                    compassEnabled: true,
+                    initialCameraPosition: cameraPosition,
+                    // initialCameraPosition: CameraPosition(
+                    //   target: LatLng(43.66487952342741, -79.3795446306467),
+                    //   zoom: 16,
+                    // ),
+                    markers: Set.from([
+                      for (final drop in data)
+                        if (drop.coordinates != null)
+                          Marker(
+                            markerId: MarkerId(drop.id),
+                            alpha: drop.isDraft ? 0.5 : 1.0,
+                            onTap: () {
+                              debugPrint(drop.toString());
+                              if (drop.isDraft) {
+                                cardBloc
+                                  ..reset()
+                                  ..add(SetDrop(drop));
+                                _showEditDropCard();
+                              } else {
+                                tappedDrop = drop;
+                                _showViewDropCard();
+                              }
+                            },
+                            position: LatLng(
+                              drop.coordinates.latitude,
+                              drop.coordinates.longitude,
+                            ),
+                          ),
+                    ]),
+                    myLocationButtonEnabled: false,
+                    onMapCreated: (GoogleMapController controller) {
+                      setState(() {
+                        mapController = controller;
+                      });
+                      // _activateMapDarkMode();
+                      _activateMapDarkMode();
                     },
-                  ]);
-                } else {
-                  newDropPosition = position;
-                  cardBloc.reset();
-                  cardBloc.add(
-                    UpdateDrop(
-                      coordinates: Coordinates.fromLatLng(position),
-                      topCategory: mapBloc.state.activeTopCategory,
-                      category: mapBloc.state.activeCategory,
-                      subcategory: mapBloc.state.activeSubcategory,
-                      isDraft: true,
-                      addedBy: Provider.of<Auth>(context, listen: false)
-                          .currentUser
-                          .documentReference,
-                    ),
+                    onLongPress: (LatLng position) async {
+                      var currentUser =
+                          Provider.of<Auth>(context, listen: false).currentUser;
+                      if (currentUser == null) {
+                        showAlertDialog(context, 'You are not logged in', [
+                          'Whatever!',
+                          'Login'
+                        ], [
+                          () => Navigator.pop(context),
+                          () {
+                            Navigator.pop(context);
+                            navigateTo(context, AccountPage());
+                          },
+                        ]);
+                      } else if (isContributing == false) {
+                        showAlertDialog(
+                          context,
+                          'You are not in contribute mode',
+                          ['Whatever!', 'Contribute'],
+                          [
+                            () => Navigator.pop(context),
+                            () {
+                              contributeController.changeToContributeMode(true);
+                              print(contributeController.contributeMode);
+                              Navigator.pop(context);
+                            },
+                          ],
+                        );
+                      } else {
+                        newDropPosition = position;
+                        cardBloc.reset();
+                        cardBloc.add(
+                          UpdateDrop(
+                            coordinates: Coordinates.fromLatLng(position),
+                            topCategory: mapBloc.state.activeTopCategory,
+                            category: mapBloc.state.activeCategory,
+                            subcategory: mapBloc.state.activeSubcategory,
+                            isDraft: true,
+                            addedBy: Provider.of<Auth>(context, listen: false)
+                                .currentUser
+                                .documentReference,
+                          ),
+                        );
+                        _showEditDropCard();
+//                  });});
+                      }
+                    },
                   );
-                  _showEditDropCard();
-//                  });
-                }
-              },
-            );
-          },
-        );
+                },
+              );
+            });
       },
     );
   }
