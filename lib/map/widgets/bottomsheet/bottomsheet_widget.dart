@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:locator/map/bloc/map_bloc.dart';
+import 'package:locator/map/widgets/controllers/app_controller.dart';
 import 'package:locator/map/widgets/tags/tags_list.dart';
 
 class BottomSheetWidget extends StatefulWidget {
@@ -16,92 +18,113 @@ class BottomSheetHandle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        margin: EdgeInsets.only(top: 15),
+      return
+          // Padding(
+          Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
         height: 5,
         width: constraints.maxWidth / 7,
         decoration: BoxDecoration(
-          color: Theme.of(context).dividerColor,
+          color: AppController.instance.isColor == false
+              ? Theme.of(context).dividerColor
+              : Colors.yellow[600],
           borderRadius: BorderRadius.circular(4),
         ),
       );
+      // );
     });
   }
 }
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   int spacerFlex = 3;
-  double bottomSheetHeight = 125;
+  // double bottomSheetHeight = 125;
+  double bottomSheetHeight = AppController.instance.isHeight;
+  bool valor = false;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      // color: Colors.black,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return AnimatedBuilder(
+        animation: AppController.instance,
+        builder: (context, child) {
+          return AnimatedContainer(
+            // color: Colors.black,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(15),
+            ),
 
-      alignment: Alignment.topCenter,
-      duration: Duration(milliseconds: 300),
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      height: bottomSheetHeight,
-      child: GestureDetector(
-        onVerticalDragUpdate: onVerticalDragUpdate,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Container(
-              height: 125,
-              // width: MediaQuery.of(context).size.width,
-              // decoration: BoxDecoration(
-              //   // color: Theme.of(context).primaryColor,
-              //   // color: Colors.red,
-              //   color: Colors.transparent,
-              //   borderRadius: BorderRadius.circular(15),
-              // ),
+            alignment: Alignment.topCenter,
+            duration: Duration(milliseconds: 300),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            height: AppController.instance.isColor == false ? 120 : 315,
 
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+            child: GestureDetector(
+              onVerticalDragUpdate: onVerticalDragUpdate,
+              child: ListView(
                 children: <Widget>[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Spacer(flex: spacerFlex),
-                      Expanded(child: BottomSheetHandle()),
-                      Spacer(
-                        flex: spacerFlex,
-                      ),
-                    ],
-                  ),
+                  Container(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Spacer(flex: spacerFlex),
+                            Expanded(child: BottomSheetHandle()),
+                            Spacer(
+                              flex: spacerFlex,
+                            ),
+                          ],
+                        ),
 
-                  Flexible(
-                      // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
-                      child: TagsList()),
-                  // widget.child,
+                        Container(
+                          height: AppController.instance.isColor == false
+                              ? 80 //CERTO!!!!!!!!!!!!!!
+                              : 280,
+                          child: ListView(
+                            children: <Widget>[
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Flexible(
+                                    // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
+                                    child: TagsList(),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text('asdsadsad'),
+                                      Text('asdsadsad'),
+                                      Text('asdsadsad'),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+
+                        // widget.child,
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 
   onVerticalDragUpdate(DragUpdateDetails details) {
-    print(bottomSheetHeight);
-    print(details.delta.dy);
-    if (details.delta.dy > 1) {
-      bottomSheetHeight = 125;
-    } else if (details.delta.dy < 1) {
-      bottomSheetHeight = 400;
+    if (AppController.instance.isModalActive == true) {
+      if (details.delta.dy > 2.5) {
+        bottomSheetHeight = 125;
+      } else if (details.delta.dy < 2.5) {
+        bottomSheetHeight = 400;
+      }
     }
 
-    // if (details.delta.dy < -2.5) {
-    //   bottomSheetHeight = 400;
-    // }
     setState(() {});
   }
 }

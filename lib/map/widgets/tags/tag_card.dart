@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locator/map/widgets/controllers/app_controller.dart';
 
 class TagCard extends StatelessWidget {
   final String text;
@@ -17,7 +18,10 @@ class TagCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
           side: BorderSide(
-            color: Theme.of(context).dividerColor,
+            // color: Theme.of(context).dividerColor,
+            color: (AppController.instance.isButtonCollor == text
+                ? Colors.green[900]
+                : Theme.of(context).dividerColor),
             width: 1,
           ),
         ),
@@ -26,16 +30,27 @@ class TagCard extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: Theme.of(context).disabledColor,
+              color: (AppController.instance.isButtonCollor == text
+                  ? Theme.of(context).accentColor
+                  : Theme.of(context).disabledColor),
               size: 22,
             ),
             Text(
               // tag,
               text,
               style: TextStyle(
-                color: Theme.of(context).dividerColor,
+                // color: Colors.green,
+                // color: Theme.of(context).dividerColor,
+                color: (AppController.instance.isButtonCollor == text
+                    ? Colors.green
+                    : Colors.grey),
+                // color: text == myColorz[0].name
+                //     ? Color(myColorz[0].color)
+                //     : Colors.grey,
                 fontSize: 12,
-                fontWeight: FontWeight.normal,
+                fontWeight: (AppController.instance.isButtonCollor == text
+                    ? FontWeight.bold
+                    : FontWeight.normal),
               ),
             ),
           ],
