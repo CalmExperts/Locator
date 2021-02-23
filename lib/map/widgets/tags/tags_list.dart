@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:locator/controllers/options_controller.dart';
 import 'package:locator/map/widgets/tags/tag_card.dart';
 import 'package:locator/options/routes/options_page.dart';
 
 class TagsList extends StatelessWidget {
+  final optionsController = GetIt.I.get<OptionsController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100,
       padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -15,7 +20,10 @@ class TagsList extends StatelessWidget {
             text: 'OPTIONS',
             icon: Icons.warning,
             onPressed: () {
-              print('OPTIONS!');
+              // print('OPTIONS!');
+              // optionsController.changeModal(false);
+              // optionsController.changeColor(false);
+              // optionsController.changeButtonColor('OPTIONS');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -28,13 +36,18 @@ class TagsList extends StatelessWidget {
             text: 'UPDATE',
             icon: Icons.warning,
             onPressed: () {
-              print('UPDATE!');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OptionsPage(),
-                ),
-              );
+              if (optionsController.isModalActive == false) {
+                optionsController.changeModal(true);
+                optionsController.changeButtonColor('UPDATE');
+                optionsController.changeColor(true);
+              } else {
+                optionsController.changeModal(false);
+                optionsController.changeColor(false);
+              }
+              // print('UPDATE!');
+              // optionsController.changeModal(true);
+              // optionsController.changeButtonColor('UPDATE');
+              // optionsController.changeColor(true);
             },
           ),
           TagCard(
@@ -42,12 +55,16 @@ class TagsList extends StatelessWidget {
             icon: Icons.warning,
             onPressed: () {
               print('CONTRIBUTE!');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OptionsPage(),
-                ),
-              );
+              if (optionsController.isModalActive == false) {
+                optionsController.changeModal(true);
+                optionsController.changeButtonColor('CONTRIBUTE');
+                optionsController.changeColor(true);
+              } else {
+                optionsController.changeModal(false);
+                optionsController.changeColor(false);
+              }
+              // optionsController.isModalActive == false ??
+              //     optionsController.changeModal(true);
             },
           ),
           TagCard(
@@ -55,29 +72,35 @@ class TagsList extends StatelessWidget {
             icon: Icons.warning,
             onPressed: () {
               print('CANT\' FIND SOMETHING!');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OptionsPage(),
-                ),
-              );
+              if (optionsController.isModalActive == false) {
+                optionsController.changeModal(true);
+                optionsController.changeButtonColor('CAN\'T FIND SOMETHING?');
+                optionsController.changeColor(true);
+              } else {
+                optionsController.changeModal(false);
+                optionsController.changeColor(false);
+              }
+
+              // optionsController.changeButtonColor('CAN\'T FIND SOMETHING?');
+              // optionsController.changeModal(false);
+              // optionsController.changeColor(false);
             },
           ),
-
           TagCard(
             text: 'DONATE',
             icon: Icons.warning,
             onPressed: () {
               print('DONATE');
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OptionsPage(),
-                ),
-              );
+              if (optionsController.isModalActive == false) {
+                optionsController.changeModal(true);
+                optionsController.changeButtonColor('DONATE');
+                optionsController.changeColor(true);
+              } else {
+                optionsController.changeModal(false);
+                optionsController.changeColor(false);
+              }
             },
           ),
-          // ),
         ],
       ),
     );

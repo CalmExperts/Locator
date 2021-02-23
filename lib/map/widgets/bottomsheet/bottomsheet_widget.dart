@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:locator/map/widgets/tags/tags_list.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:locator/controllers/options_controller.dart';
+import 'package:locator/options/routes/contribute_page.dart';
+
+import '../tags/tags_list.dart';
+import 'bottomsheet_handle.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({Key key}) : super(key: key);
@@ -8,71 +14,109 @@ class BottomSheetWidget extends StatefulWidget {
   _BottomSheetWidgetState createState() => _BottomSheetWidgetState();
 }
 
-class BottomSheetHandle extends StatelessWidget {
-  const BottomSheetHandle({
-    Key key,
-  }) : super(key: key);
+class _BottomSheetWidgetState extends State<BottomSheetWidget>
+    with TickerProviderStateMixin {
+  final optionsController = GetIt.I.get<OptionsController>();
+  AnimationController _controller;
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        margin: EdgeInsets.only(top: 15),
-        height: 5,
-        width: constraints.maxWidth / 7,
-        decoration: BoxDecoration(
-          color: Theme.of(context).dividerColor,
-          borderRadius: BorderRadius.circular(4),
-        ),
-      );
-    });
-  }
-}
-
-class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   int spacerFlex = 3;
+  double bottomSheetHeight;
+  bool valor = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      height: 160,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Container(
-            height: 125,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
+    return Observer(builder: (_) {
+      bool isColorActive = optionsController.isColorActive;
+      return AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return AnimatedContainer(
+              // color: Colors.black,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(15),
+              ),
+
+              alignment: Alignment.topCenter,
+              duration: Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              height: isColorActive == false ? 120 : 315,
+
+              child: GestureDetector(
+                onVerticalDragUpdate: onVerticalDragUpdate,
+                child: ListView(
                   children: <Widget>[
-                    Spacer(flex: spacerFlex),
-                    Expanded(child: BottomSheetHandle()),
-                    Spacer(
-                      flex: spacerFlex,
-                    ),
+                    Container(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Spacer(flex: spacerFlex),
+                              Expanded(child: BottomSheetHandle()),
+                              Spacer(
+                                flex: spacerFlex,
+                              ),
+                            ],
+                          ),
+
+                          Container(
+                            height: isColorActive == false
+                                ? 80 //CERTO!!!!!!!!!!!!!!
+                                : 280,
+                            child: ListView(
+                              children: <Widget>[
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Flexible(
+                                      // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
+                                      child: TagsList(),
+                                    ),
+                                    Column(
+                                      children: [
+                                        ContributePage(),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+
+                          // widget.child,
+                        ],
+                      ),
+                    )
                   ],
                 ),
+              ),
+            );
+          });
+    });
+  }
 
-                Flexible(
-                    // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
-                    child: TagsList()),
-                // widget.child,
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+  onVerticalDragUpdate(DragUpdateDetails details) {
+    if (optionsController.isModalActive == true) {
+      if (details.delta.dy > 2.5) {
+        bottomSheetHeight = 125;
+      } else if (details.delta.dy < 2.5) {
+        bottomSheetHeight = 400;
+      }
+    }
+
+    setState(() {});
   }
 }
 
@@ -118,6 +162,12 @@ class _SheetButtonState extends State<SheetButton> {
                 },
               );
               await Future.delayed(Duration(seconds: 1));
+              setState(() {
+                checkingFlight = true;
+              });
+
+              await Future.delayed(Duration(seconds: 1));
+
               setState(() {
                 success = true;
               });
