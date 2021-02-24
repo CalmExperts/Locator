@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:locator/controllers/contribute_controller.dart';
+import 'package:locator/options/widgets/points_row.dart';
 
 class ContributePage extends StatefulWidget {
   @override
@@ -19,6 +21,7 @@ class _ContributePageState extends State<ContributePage> {
         print(contributeMode);
         return controller.pageIndex == 1
             ? Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -29,27 +32,44 @@ class _ContributePageState extends State<ContributePage> {
                       icon: Icon(Icons.keyboard_arrow_left_sharp),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
+                  Center(
                     child: Column(
                       children: [
+                        Container(
+                          height: 90,
+                          width: 90,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blue,
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.transparent,
+                        ),
+                        Text("YOU"),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        PointsRow(),
+                        Divider(
+                          color: Colors.transparent,
+                        ),
                         Switch(
                           value: contributeMode,
                           onChanged: (value) {
-                            controller.changeToContributeMode(value);
+                            _contribute(value);
                           },
                         ),
-                        Text(
-                          contributeMode == false
-                              ? "CONTRIBUTE"
-                              : "CONTRIBUTING",
-                        ),
+                        SizedBox(height: 10),
+                        Text(contributeMode == false
+                            ? "CONTRIBUTE"
+                            : "CONTRIBUTING"),
                       ],
                     ),
                   ),
                 ],
               )
             : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.blueAccent,
@@ -76,5 +96,22 @@ class _ContributePageState extends State<ContributePage> {
               );
       },
     );
+  }
+
+  _contribute(bool value) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    if (auth.currentUser == null) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: Text("You need to sign into your account to contribute"),
+          );
+        },
+      );
+    } else {
+      controller.changeToContributeMode(value);
+    }
   }
 }

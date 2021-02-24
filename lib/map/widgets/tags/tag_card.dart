@@ -30,7 +30,7 @@ class _TagCardState extends State<TagCard> {
             side: BorderSide(
               // color: Theme.of(context).dividerColor,
               color: (optionsController.buttonColor == widget.text
-                  ? Colors.green[900]
+                  ? Theme.of(context).indicatorColor
                   : Theme.of(context).dividerColor),
               width: 1,
             ),
@@ -49,14 +49,9 @@ class _TagCardState extends State<TagCard> {
                 // tag,
                 widget.text,
                 style: TextStyle(
-                  // color: Colors.green,
-                  // color: Theme.of(context).dividerColor,
                   color: (optionsController.buttonColor == widget.text
-                      ? Colors.green
-                      : Colors.grey),
-                  // color: text == myColorz[0].name
-                  //     ? Color(myColorz[0].color)
-                  //     : Colors.grey,
+                      ? Theme.of(context).indicatorColor
+                      : Theme.of(context).disabledColor),
                   fontSize: 12,
                   fontWeight: (optionsController.buttonColor == widget.text
                       ? FontWeight.bold

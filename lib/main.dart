@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:locator/app_injections.dart';
 import 'package:locator/resources/theme_changer.dart';
 import 'auth/auth.dart';
@@ -27,7 +28,6 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(Locator());
 }
 

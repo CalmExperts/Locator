@@ -56,6 +56,22 @@ mixin _$OptionsController on _OptionsControllerBase, Store {
     });
   }
 
+  final _$optionSelectedAtom =
+      Atom(name: '_OptionsControllerBase.optionSelected');
+
+  @override
+  bool get optionSelected {
+    _$optionSelectedAtom.reportRead();
+    return super.optionSelected;
+  }
+
+  @override
+  set optionSelected(bool value) {
+    _$optionSelectedAtom.reportWrite(value, super.optionSelected, () {
+      super.optionSelected = value;
+    });
+  }
+
   final _$numberAtom = Atom(name: '_OptionsControllerBase.number');
 
   @override
@@ -139,6 +155,7 @@ mixin _$OptionsController on _OptionsControllerBase, Store {
 height: ${height},
 isModalActive: ${isModalActive},
 isColorActive: ${isColorActive},
+optionSelected: ${optionSelected},
 number: ${number},
 buttonColor: ${buttonColor}
     ''';

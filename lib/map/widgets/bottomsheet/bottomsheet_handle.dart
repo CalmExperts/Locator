@@ -10,23 +10,17 @@ class BottomSheetHandle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final optionsController = GetIt.I.get<OptionsController>();
-
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Observer(builder: (_) {
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            height: 5,
-            width: constraints.maxWidth / 7,
-            decoration: BoxDecoration(
-              color: optionsController.isColorActive == false
-                  ? Theme.of(context).dividerColor
-                  : Colors.yellow[600],
-              borderRadius: BorderRadius.circular(4),
-            ),
-          );
-        });
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          height: 5,
+          width: constraints.maxWidth / 7,
+          decoration: BoxDecoration(
+            color: Colors.yellow[600],
+            borderRadius: BorderRadius.circular(4),
+          ),
+        );
         // );
       },
     );

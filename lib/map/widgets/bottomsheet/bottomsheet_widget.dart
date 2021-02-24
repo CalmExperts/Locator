@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:locator/controllers/options_controller.dart';
+import 'package:locator/map/widgets/tags/tag_card.dart';
 import 'package:locator/options/routes/contribute_page.dart';
+import 'package:locator/options/routes/options_page.dart';
 
 import '../tags/tags_list.dart';
+import '../update_page.dart';
 import 'bottomsheet_handle.dart';
 
 class BottomSheetWidget extends StatefulWidget {
@@ -23,6 +26,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
   double bottomSheetHeight;
   bool valor = false;
 
+  List<Widget> pages;
+  int currentView = 0;
+
   @override
   void initState() {
     super.initState();
@@ -30,95 +36,126 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
       duration: const Duration(seconds: 1),
       vsync: this,
     );
+    pages = [
+      mainPage(),
+      updatePage(),
+      contributePage(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      bool isColorActive = optionsController.isColorActive;
-      return AnimatedBuilder(
+    return WillPopScope(
+      onWillPop: () {
+        optionsController.isModalActive = false;
+        Navigator.pop(context);
+        return;
+      },
+      child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            return AnimatedContainer(
-              // color: Colors.black,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(15),
-              ),
+            return Observer(
+              builder: (_) {
+                return AnimatedContainer(
+                  // color: Colors.black,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
 
-              alignment: Alignment.topCenter,
-              duration: Duration(milliseconds: 300),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              height: isColorActive == false ? 120 : 315,
-
-              child: GestureDetector(
-                onVerticalDragUpdate: onVerticalDragUpdate,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Container(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Spacer(flex: spacerFlex),
-                              Expanded(child: BottomSheetHandle()),
-                              Spacer(
-                                flex: spacerFlex,
-                              ),
-                            ],
-                          ),
-
-                          Container(
-                            height: isColorActive == false
-                                ? 80 //CERTO!!!!!!!!!!!!!!
-                                : 280,
-                            child: ListView(
-                              physics: NeverScrollableScrollPhysics(),
-                              children: <Widget>[
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Flexible(
-                                      // child: TagsList(fridge.tags.map((a) => a.toString()).toList())),
-                                      child: TagsList(),
-                                    ),
-                                    Column(
-                                      children: [
-                                        ContributePage(),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-
-                          // widget.child,
-                        ],
+                  alignment: Alignment.topCenter,
+                  duration: Duration(milliseconds: 300),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  height: optionsController.optionSelected == true ? 500 : 120,
+                  child: GestureDetector(
+                    onVerticalDragUpdate: onVerticalDragUpdate,
+                    child: Container(
+                      child: Center(
+                        child: pages[currentView],
                       ),
-                    )
-                  ],
-                ),
-              ),
+                    ),
+                  ),
+
+                  //   ],
+                  // ),
+                );
+              },
             );
-          });
-    });
+          }),
+    );
+  }
+
+  mainPage() {
+    return Container(
+      height: 100,
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(),
+        children: [
+          TagCard(
+            text: 'OPTIONS',
+            icon: Icons.warning,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OptionsPage(),
+                ),
+              );
+            },
+          ),
+          TagCard(
+            text: 'UPDATE',
+            icon: Icons.warning,
+            onPressed: () {
+              optionsController.optionSelected = true;
+              setState(() {
+                currentView = 1;
+              });
+            },
+          ),
+          TagCard(
+            text: 'CONTRIBUTE',
+            icon: Icons.warning,
+            onPressed: () {
+              optionsController.optionSelected = true;
+              setState(() {
+                currentView = 2;
+              });
+            },
+          ),
+          TagCard(
+            text: 'CAN\'T FIND SOMETHING?',
+            icon: Icons.warning,
+            onPressed: () {},
+          ),
+          TagCard(
+            text: 'DONATE',
+            icon: Icons.warning,
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  updatePage() {
+    return UpdatePage();
+  }
+
+  contributePage() {
+    return ContributePage();
   }
 
   onVerticalDragUpdate(DragUpdateDetails details) {
-    if (optionsController.isModalActive == true) {
-      if (details.delta.dy > 2.5) {
-        bottomSheetHeight = 125;
-      } else if (details.delta.dy < 2.5) {
-        bottomSheetHeight = 400;
-      }
-    }
-
-    setState(() {});
+    // if (details.delta.dy > 2.5) {
+    //   optionsController.optionSelected = false;
+    // }
+    // } else if (details.delta.dy < 2.5) {
+    //   optionsController.optionSelected = true;
+    // }
   }
 }
 
@@ -188,7 +225,7 @@ class _SheetButtonState extends State<SheetButton> {
             ? CircularProgressIndicator()
             : Icon(
                 Icons.check,
-                color: Colors.green,
+                color: Theme.of(context).indicatorColor,
               );
   }
 }

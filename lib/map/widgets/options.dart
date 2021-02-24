@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:locator/controllers/options_controller.dart';
 import 'package:locator/map/widgets/bottomsheet/bottomsheet_widget.dart';
 import 'package:locator/options/routes/options_page.dart';
 import 'package:locator/resources/dimensions.dart';
@@ -10,6 +12,8 @@ class Options extends StatefulWidget {
 
 class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  final optionsController = GetIt.I.get<OptionsController>();
+
   // (if pushed, this commit will... (explicação) )
 
   // git c "tag list and tag card" -m "- the card is blue" -m "- the other card is yellw"
@@ -31,11 +35,13 @@ class _OptionsState extends State<Options> with SingleTickerProviderStateMixin {
       borderRadius: borderRadius15,
       child: InkWell(
         onTap: () {
-          var sheetController = showBottomSheet(
-              backgroundColor: Colors.transparent,
-              context: context,
-              // builder: (context) => BottomSheetWidget());
-              builder: (context) => BottomSheetWidget());
+          showBottomSheet(
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) => BottomSheetWidget(),
+          ).closed.whenComplete(() {
+            optionsController.optionSelected = false;
+          });
         },
         child: Container(
           child: IconTheme(

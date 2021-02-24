@@ -14,6 +14,9 @@ abstract class _OptionsControllerBase with Store {
   bool isColorActive = false;
 
   @observable
+  bool optionSelected = false;
+
+  @observable
   int number;
 
   @observable
