@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/map/bloc/map_bloc.dart';
 import 'package:locator/map/models/category.dart';
+import 'package:locator/map/widgets/add_drop.dart';
 import 'package:locator/map/widgets/category_bar.dart';
 import 'package:locator/map/widgets/edit_card/subcategory_scroll_view.dart';
 import 'package:locator/map/widgets/find_me.dart';
@@ -169,6 +170,8 @@ class _SideBarState extends State<SideBar> {
               );
             },
           ),
+          separator,
+          AddDrop(),
           separator,
           FindMe(
             onFindMe: () {

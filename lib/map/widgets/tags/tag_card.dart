@@ -5,10 +5,12 @@ import 'package:locator/controllers/options_controller.dart';
 
 class TagCard extends StatefulWidget {
   final String text;
+  final String description;
   final Function onPressed;
   final IconData icon;
 
-  const TagCard({Key key, this.text, this.onPressed, this.icon})
+  const TagCard(
+      {Key key, this.text, this.onPressed, this.icon, this.description})
       : super(key: key);
 
   @override
@@ -20,49 +22,38 @@ class _TagCardState extends State<TagCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 26.0),
-        child: FlatButton(
-          height: 45,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            side: BorderSide(
-              // color: Theme.of(context).dividerColor,
-              color: (optionsController.buttonColor == widget.text
-                  ? Theme.of(context).indicatorColor
-                  : Theme.of(context).dividerColor),
-              width: 1,
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 26.0),
+      child: FlatButton(
+        height: 40,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          side: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 1,
           ),
-          // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        ),
+        child: Center(
           child: Row(
             children: [
               Icon(
                 widget.icon,
-                color: (optionsController.buttonColor == widget.text
-                    ? Theme.of(context).accentColor
-                    : Theme.of(context).disabledColor),
+                color: Theme.of(context).disabledColor,
                 size: 22,
               ),
               Text(
-                // tag,
                 widget.text,
                 style: TextStyle(
-                  color: (optionsController.buttonColor == widget.text
-                      ? Theme.of(context).indicatorColor
-                      : Theme.of(context).disabledColor),
+                  color: Theme.of(context).disabledColor,
                   fontSize: 12,
-                  fontWeight: (optionsController.buttonColor == widget.text
-                      ? FontWeight.bold
-                      : FontWeight.normal),
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ],
           ),
-          onPressed: widget.onPressed,
         ),
-      );
-    });
+        onPressed: widget.onPressed,
+      ),
+    );
   }
 }

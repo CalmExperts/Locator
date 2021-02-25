@@ -21,7 +21,6 @@ class _ContributePageState extends State<ContributePage> {
         print(contributeMode);
         return controller.pageIndex == 1
             ? Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,

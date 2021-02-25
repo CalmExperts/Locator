@@ -186,11 +186,13 @@ class CategoryBarState extends State<CategoryBar>
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             if (isHorizontal) // place activeTopCategoryButton at the beginning
-              CategoryBalloon(
-                category: widget.activeTopCategory,
-                isActive: true,
-                onPressed: () => reopenTopCategories(),
-                size: 60,
+              Expanded(
+                child: CategoryBalloon(
+                  category: widget.activeTopCategory,
+                  isActive: true,
+                  onPressed: () => reopenTopCategories(),
+                  size: 60,
+                ),
               ),
             Expanded(
               child: FlexibleScrollableContainer(

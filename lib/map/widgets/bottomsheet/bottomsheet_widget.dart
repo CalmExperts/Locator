@@ -20,7 +20,8 @@ class BottomSheetWidget extends StatefulWidget {
 class _BottomSheetWidgetState extends State<BottomSheetWidget>
     with TickerProviderStateMixin {
   final optionsController = GetIt.I.get<OptionsController>();
-  AnimationController _controller;
+  static const EdgeInsets _dropCardPadding =
+      EdgeInsets.symmetric(horizontal: 8, vertical: 10);
 
   int spacerFlex = 3;
   double bottomSheetHeight;
@@ -32,10 +33,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
+
     pages = [
       mainPage(),
       updatePage(),
@@ -51,38 +49,46 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
         Navigator.pop(context);
         return;
       },
-      child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return Observer(
-              builder: (_) {
-                return AnimatedContainer(
-                  // color: Colors.black,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-
-                  alignment: Alignment.topCenter,
-                  duration: Duration(milliseconds: 300),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  height: optionsController.optionSelected == true ? 500 : 120,
-                  child: GestureDetector(
-                    onVerticalDragUpdate: onVerticalDragUpdate,
-                    child: Container(
-                      child: Center(
-                        child: pages[currentView],
-                      ),
+      child: Observer(
+        builder: (_) {
+          return Container(
+            height: optionsController.optionSelected == true ? 500 : 145,
+            child: Card(
+              color: Theme.of(context).primaryColorDark,
+              margin: _dropCardPadding,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  optionsController.optionSelected == true
+                      ? Container()
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Spacer(flex: spacerFlex),
+                            Expanded(child: BottomSheetHandle()),
+                            Spacer(
+                              flex: spacerFlex,
+                            ),
+                          ],
+                        ),
+                  Container(
+                    child: Center(
+                      child: pages[currentView],
                     ),
                   ),
-
-                  //   ],
-                  // ),
-                );
-              },
-            );
-          }),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -95,8 +101,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
         physics: BouncingScrollPhysics(),
         children: [
           TagCard(
-            text: 'OPTIONS',
-            icon: Icons.warning,
+            text: ' OPTIONS',
+            icon: Icons.settings,
             onPressed: () {
               Navigator.push(
                 context,
@@ -107,8 +113,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
             },
           ),
           TagCard(
-            text: 'UPDATE',
-            icon: Icons.warning,
+            text: ' UPDATE',
+            description: "v1.0",
+            icon: Icons.update,
             onPressed: () {
               optionsController.optionSelected = true;
               setState(() {
@@ -117,8 +124,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
             },
           ),
           TagCard(
-            text: 'CONTRIBUTE',
-            icon: Icons.warning,
+            text: ' CONTRIBUTE',
+            description: "Earn points",
+            icon: Icons.point_of_sale,
             onPressed: () {
               optionsController.optionSelected = true;
               setState(() {
@@ -127,13 +135,15 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
             },
           ),
           TagCard(
-            text: 'CAN\'T FIND SOMETHING?',
+            text: ' CAN\'T FIND SOMETHING?',
+            description: "Try Google Maps",
             icon: Icons.warning,
             onPressed: () {},
           ),
           TagCard(
-            text: 'DONATE',
-            icon: Icons.warning,
+            text: ' DONATE',
+            description: "Remove ads",
+            icon: Icons.monetization_on_sharp,
             onPressed: () {},
           ),
         ],
@@ -149,14 +159,16 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
     return ContributePage();
   }
 
-  onVerticalDragUpdate(DragUpdateDetails details) {
-    // if (details.delta.dy > 2.5) {
-    //   optionsController.optionSelected = false;
-    // }
-    // } else if (details.delta.dy < 2.5) {
-    //   optionsController.optionSelected = true;
-    // }
-  }
+  // onVerticalDragUpdate(DragUpdateDetails details) {
+  //   if (details.delta.dy > 2.5) {
+  //     optionsController.optionSelected = false;
+  //     Navigator.pop(context);
+  //   }
+
+  //   // else if (details.delta.dy < 2.5) {
+  //   //   optionsController.optionSelected = true;
+  //   // }
+  // }
 }
 
 class DecoratedTextField extends StatelessWidget {

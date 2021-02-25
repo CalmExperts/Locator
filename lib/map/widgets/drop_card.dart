@@ -239,13 +239,6 @@ class _ViewDropCardState extends State<ViewDropCard> {
                         icon: Icons.edit_outlined,
                         onPressed: () {
                           print('EDIT!');
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OptionsPage(),
-                            ),
-                          );
                         },
                       ),
                       SmallMarkCard(
