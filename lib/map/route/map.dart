@@ -125,9 +125,6 @@ class _SideBarState extends State<SideBar> {
   Widget build(BuildContext context) {
     Widget separator = Container(height: 12);
     return Container(
-      // color: Colors.yellow,
-      //-----------
-
       width: sideBarSize,
       child: Column(
         children: <Widget>[

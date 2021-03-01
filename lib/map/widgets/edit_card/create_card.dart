@@ -238,6 +238,7 @@ class _CreateDropCardState extends State<CreateDropCard> {
     }
     if (cardBloc.state.isAtLastPage) {
       widget.close();
+
       Navigator.pop(context);
     }
   }

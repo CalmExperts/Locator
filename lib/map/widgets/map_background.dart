@@ -158,6 +158,7 @@ class MapBackgroundState extends State<MapBackground> {
                                 _showEditDropCard();
                               } else {
                                 tappedDrop = drop;
+                                print(drop);
                                 _showViewDropCard();
                               }
                             },
